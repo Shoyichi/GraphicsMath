@@ -288,9 +288,9 @@ Matrix4 Matrix4::rotate(const float& angle, const Vector3& a)
 	float ax2 = a.x * a.x;
 
 	return Matrix4(
-		c + ((1 - c) * a.x * a.x), ((1 - c) * a.x * a.y) - (s * a.z), ((1 - c) * a.x * a.z) + (s * a.y), 0.0f,
-		((1 - c) * a.x * a.y) + (s * a.z), c + ((1 - c) * a.y * a.y), ((1 - c) * a.y * a.z) - (s * a.x), 0.0f,
-		((1 - c) * a.x * a.z) - (s * a.y), ((1 - c) * a.y * a.z) + (s * a.x), c + ((1 - c) * a.z * a.z), 0.0f,
+		c + ((1 - c) * a.x * a.x), ((1 - c) * a.x * a.y) + (s * a.z), ((1 - c) * a.x * a.z) - (s * a.y), 0.0f,
+		((1 - c) * a.x * a.y) - (s * a.z), c + ((1 - c) * a.y * a.y), ((1 - c) * a.y * a.z) + (s * a.x), 0.0f,
+		((1 - c) * a.x * a.z) + (s * a.y), ((1 - c) * a.y * a.z) - (s * a.x), c + ((1 - c) * a.z * a.z), 0.0f,
 		0.0f, 0.0f, 0.0, 1.0f);
 }
 
@@ -300,8 +300,8 @@ Matrix4 Matrix4::rotateX(const float& angle)
 	float c = cos(angle);
 	return Matrix4(
 		1.0f, 0.0f, 0.0f, 0.0f,
-		0.0f, c, -s, 0.0f,
-		0.0f, s, c, 0.0f,
+		0.0f, c, s, 0.0f,
+		0.0f, -s, c, 0.0f,
 		0.0f, 0.0f, 0.0, 1.0f);		
 }
 
@@ -310,9 +310,9 @@ Matrix4 Matrix4::rotateY(const float& angle)
 	float s = sin(angle);
 	float c = cos(angle);
 	return Matrix4(
-		c, 0.0f, s, 0.0f,
+		c, 0.0f, -s, 0.0f,
 		0.0f, 1.0f, 0.0f, 0.0f,
-		-s, 0.0f, c, 0.0f,
+		s, 0.0f, c, 0.0f,
 		0.0f, 0.0f, 0.0, 1.0f);
 }
 
@@ -321,8 +321,8 @@ Matrix4 Matrix4::rotateZ(const float& angle)
 	float s = sin(angle);
 	float c = cos(angle);
 	return Matrix4(
-		c, -s, 0.0f, 0.0f,
-		s, c, 0.0f, 0.0f,
+		c, s, 0.0f, 0.0f,
+		-s, c, 0.0f, 0.0f,
 		0.0f, 0.0f, 1.0f, 0.0f,
 		0.0f, 0.0f, 0.0, 1.0f);
 }
