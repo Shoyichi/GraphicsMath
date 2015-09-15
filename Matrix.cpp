@@ -257,12 +257,12 @@ Matrix4 Matrix4::frustum(const float& left, const float& right, const float& bot
 		0.0f, 0.0f, -((2.0f * zNear * zFar) / (zFar - zNear)), 0.0f);
 }
 
-Matrix4 Matrix4::lookTo(const Vector3& direction, const Vector3& position, const Vector3& up)
+Matrix4 Matrix4::lookToRH(const Vector3& direction, const Vector3& position, const Vector3& up)
 {
-	return Matrix4::lookAt(position + direction, position, up);
+	return Matrix4::lookAtRH(position + direction, position, up);
 }
 
-Matrix4 Matrix4::lookAt(const Vector3& target, const Vector3& position, const Vector3& up)
+Matrix4 Matrix4::lookAtRH(const Vector3& target, const Vector3& position, const Vector3& up)
 {
 	Vector4 f = normalize(Vector4(target - position, 0.0f));
 	Vector4 s = normalize(cross(f, up));
@@ -270,6 +270,21 @@ Matrix4 Matrix4::lookAt(const Vector3& target, const Vector3& position, const Ve
 	Vector4 t = Vector4(position, 1.0f);
 
 	return Matrix4(s, u, -f, t).inverse();
+}
+
+Matrix4 Matrix4::lookToLH(const Vector3& direction, const Vector3& position, const Vector3& up)
+{
+	return Matrix4::lookAtLH(position + direction, position, up);
+}
+
+Matrix4 Matrix4::lookAtLH(const Vector3& target, const Vector3& position, const Vector3& up)
+{
+	Vector4 f = normalize(Vector4(target - position, 0.0f));
+	Vector4 s = normalize(cross(f, up));
+	Vector4 u = cross(s, f);
+	Vector4 t = Vector4(position, 1.0f);
+
+	return Matrix4(s, u, f, t).inverse();
 }
 
 Matrix4 Matrix4::scale(const Vector3& s)

@@ -85,8 +85,11 @@ namespace cliqCity
 			static Matrix4 perspective(const float& fovy, const float& aspectRatio, const float& zNear, const float& zFar);
 			static Matrix4 frustum(const float& left, const float& right, const float& bottom, const float& top, const float& zNear, const float& zFar);
 
-			static Matrix4 lookTo(const Vector3& direction, const Vector3& position, const Vector3& up);
-			static Matrix4 lookAt(const Vector3& target, const Vector3& position, const Vector3& up);
+			static Matrix4 lookToRH(const Vector3& direction, const Vector3& position, const Vector3& up);
+			static Matrix4 lookAtRH(const Vector3& target, const Vector3& position, const Vector3& up);
+
+			static Matrix4 lookToLH(const Vector3& direction, const Vector3& position, const Vector3& up);
+			static Matrix4 lookAtLH(const Vector3& target, const Vector3& position, const Vector3& up);
 
 			static Matrix4 scale(const Vector3& s);
 
