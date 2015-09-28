@@ -6,7 +6,20 @@ using namespace cliqCity::graphicsMath;
 
 Quaternion Quaternion::rollPitchYaw(const float& roll, const float& pitch, const float& yaw)
 {
-	return Quaternion(yaw, 1.0f, 0.0f, 0.0f) * Quaternion(pitch, 0.0f, 1.0f, 0.0f) * Quaternion(roll, 0.0f, 0.0f, 1.0f);
+	float halfRoll = roll	* 0.5f;
+	float halfPitch = pitch * 0.5f;
+	float halfYaw = yaw	* 0.5f;
+	float cosHalfRoll = cosf(halfRoll);
+	float cosHalfPitch = cosf(halfPitch);
+	float cosHalfYaw = cosf(halfYaw);
+	float sinHalfRoll = sinf(halfRoll);
+	float sinHalfPitch = sinf(halfPitch);
+	float sinHalfYaw = sinf(halfYaw);
+	return Quaternion(
+		(cosHalfYaw * cosHalfPitch * cosHalfRoll) + (sinHalfYaw * sinHalfPitch * sinHalfRoll),
+		(cosHalfYaw * sinHalfPitch * cosHalfRoll) + (sinHalfYaw * cosHalfPitch * sinHalfRoll),
+		(sinHalfYaw * cosHalfPitch * cosHalfRoll) - (cosHalfYaw * sinHalfPitch * sinHalfRoll),
+		(cosHalfYaw * cosHalfPitch * sinHalfYaw) - (sinHalfYaw * sinHalfPitch * cosHalfRoll));
 }
 
 Quaternion Quaternion::angleAxis(const float& angle, const Vector3& axis)
