@@ -65,6 +65,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="cgm.h" />
     <ClInclude Include="Matrix.hpp" />
     <ClInclude Include="Quaternion.hpp" />
     <ClInclude Include="Vector.hpp" />

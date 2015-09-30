@@ -239,7 +239,7 @@ Matrix4 Matrix4::orthographic(
 	return Matrix4(
 		2.0f / (right - left), 0.0f, 0.0f, 0.0f,
 		0.0f, 2.0f / (top - bottom), 0.0f, 0.0f,
-		0.0f, 0.0f, -2.0f / (zFar - zNear), 0.0f,
+		0.0f, 0.0f, 2.0f / (zFar - zNear), 0.0f,
 		-(right + left) / (right - left), -(top + bottom) / (top - bottom), -(zFar + zNear) / (zFar - zNear), 1.0f);
 }
 
@@ -262,7 +262,7 @@ Matrix4 Matrix4::frustum(const float& left, const float& right, const float& bot
 	return Matrix4(
 		(2.0f * zNear) / (right - left), 0.0f, 0.0f, 0.0f,
 		0.0f, (2.0f * zNear) / (top - bottom), 0.0f, 0.0f,
-		(right + left) / (right - left), (top + bottom) / (top - bottom), -((zFar + zNear) / (zFar - zNear)), -1.0f,
+		(right + left) / (right - left), (top + bottom) / (top - bottom), -((zFar + zNear) / (zFar - zNear)), 1.0f,
 		0.0f, 0.0f, -((2.0f * zNear * zFar) / (zFar - zNear)), 0.0f);
 }
 
