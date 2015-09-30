@@ -231,19 +231,21 @@ float& Matrix3::operator()(const unsigned int& row, const unsigned int& column)
 
 // Static 
 
-Matrix4 Matrix4::orthographic(
-	const float& left, const float& right, 
-	const float& bottom, const float& top, 
+Matrix4 Matrix4::orthographicRH(
+	const float& left, const float& right,
+	const float& bottom, const float& top,
 	const float& zNear, const float& zFar)
 {
 	return Matrix4(
 		2.0f / (right - left), 0.0f, 0.0f, 0.0f,
 		0.0f, 2.0f / (top - bottom), 0.0f, 0.0f,
-		0.0f, 0.0f, 2.0f / (zFar - zNear), 0.0f,
+		0.0f, 0.0f, -2.0f / (zFar - zNear), 0.0f,
 		-(right + left) / (right - left), -(top + bottom) / (top - bottom), -(zFar + zNear) / (zFar - zNear), 1.0f);
 }
 
-Matrix4 Matrix4::perspective(const float& fovy, const float& aspectRatio, const float& zNear, const float& zFar)
+Matrix4 Matrix4::perspectiveRH(
+	const float& fovy, const float& aspectRatio,
+	const float& zNear, const float& zFar)
 {
 	float tanHalfFovy = tanf(fovy * 0.5f);
 	float zoomY = 1.0f / tanHalfFovy;
@@ -254,16 +256,137 @@ Matrix4 Matrix4::perspective(const float& fovy, const float& aspectRatio, const 
 	float top = zNear / zoomY;
 	float bottom = -top;
 
-	return frustum(left, right, bottom, top, zNear, zFar);
+	return frustumRH(left, right, bottom, top, zNear, zFar);
 }
 
-Matrix4 Matrix4::frustum(const float& left, const float& right, const float& bottom, const float& top, const float& zNear, const float& zFar)
+Matrix4 Matrix4::frustumRH(
+	const float& left, const float& right,
+	const float& bottom, const float& top,
+	const float& zNear, const float& zFar)
 {
 	return Matrix4(
 		(2.0f * zNear) / (right - left), 0.0f, 0.0f, 0.0f,
 		0.0f, (2.0f * zNear) / (top - bottom), 0.0f, 0.0f,
-		(right + left) / (right - left), (top + bottom) / (top - bottom), -((zFar + zNear) / (zFar - zNear)), 1.0f,
+		(right + left) / (right - left), (top + bottom) / (top - bottom), -((zFar + zNear) / (zFar - zNear)), -1.0f,
 		0.0f, 0.0f, -((2.0f * zNear * zFar) / (zFar - zNear)), 0.0f);
+}
+
+Matrix4 Matrix4::orthographicLH(
+	const float& left, const float& right,
+	const float& bottom, const float& top,
+	const float& zNear, const float& zFar)
+{
+	return Matrix4(
+		2.0f / (right - left), 0.0f, 0.0f, 0.0f,
+		0.0f, 2.0f / (top - bottom), 0.0f, 0.0f,
+		0.0f, 0.0f, 2.0f / (zFar - zNear), 0.0f,
+		-(right + left) / (right - left), -(top + bottom) / (top - bottom), -((zFar + zNear) / (zFar - zNear)), 1.0f);
+}
+
+Matrix4 Matrix4::perspectiveLH(
+	const float& fovy, const float& aspectRatio,
+	const float& zNear, const float& zFar)
+{
+	float tanHalfFovy = tanf(fovy * 0.5f);
+	float zoomY = 1.0f / tanHalfFovy;
+	float zoomX = 1.0f / (aspectRatio * tanHalfFovy);
+
+	float right = zNear / zoomX;
+	float left = -right;
+	float top = zNear / zoomY;
+	float bottom = -top;
+
+	return frustumLH(left, right, bottom, top, zNear, zFar);
+}
+
+Matrix4 Matrix4::frustumLH(
+	const float& left, const float& right,
+	const float& bottom, const float& top,
+	const float& zNear, const float& zFar)
+{
+	return Matrix4(
+		(2.0f * zNear) / (right - left), 0.0f, 0.0f, 0.0f,
+		0.0f, (2.0f * zNear) / (top - bottom), 0.0f, 0.0f,
+		(right + left) / (right - left), (top + bottom) / (top - bottom), ((zFar + zNear) / (zFar - zNear)), 1.0f,
+		0.0f, 0.0f, -((2.0f * zNear * zFar) / (zFar - zNear)), 0.0f);
+}
+
+Matrix4 Matrix4::normalizedOrthographicRH(
+	const float& left, const float& right,
+	const float& bottom, const float& top,
+	const float& zNear, const float& zFar)
+{
+	return Matrix4(
+		2.0f / (right - left), 0.0f, 0.0f, 0.0f,
+		0.0f, 2.0f / (top - bottom), 0.0f, 0.0f,
+		0.0f, 0.0f, -1.0f / (zFar - zNear), 0.0f,
+		-(right + left) / (right - left), -(top + bottom) / (top - bottom), -zNear / (zNear - zFar), 1.0f);
+}
+
+Matrix4 Matrix4::normalizedPerspectiveRH(
+	const float& fovy, const float& aspectRatio, const float& zNear, const float& zFar)
+{
+	float tanHalfFovy = tanf(fovy * 0.5f);
+	float zoomY = 1.0f / tanHalfFovy;
+	float zoomX = 1.0f / (aspectRatio * tanHalfFovy);
+
+	float right = zNear / zoomX;
+	float left = -right;
+	float top = zNear / zoomY;
+	float bottom = -top;
+
+	return normalizedFrustumRH(left, right, bottom, top, zNear, zFar);
+}
+
+Matrix4 Matrix4::normalizedFrustumRH(
+	const float& left, const float& right,
+	const float& bottom, const float& top,
+	const float& zNear, const float& zFar)
+{
+	return Matrix4(
+		(2.0f * zNear) / (right - left), 0.0f, 0.0f, 0.0f,
+		0.0f, (2.0f * zNear) / (top - bottom), 0.0f, 0.0f,
+		(right + left) / (right - left), (top + bottom) / (top - bottom), -zFar / (zFar - zNear), -1.0f,
+		0.0f, 0.0f, -((zNear * zFar) / (zFar - zNear)), 0.0f);
+}
+
+Matrix4 Matrix4::normalizedOrthographicLH(
+	const float& left, const float& right,
+	const float& bottom, const float& top,
+	const float& zNear, const float& zFar)
+{
+	return Matrix4(
+		2.0f / (right - left), 0.0f, 0.0f, 0.0f,
+		0.0f, 2.0f / (top - bottom), 0.0f, 0.0f,
+		0.0f, 0.0f, 1.0f / (zFar - zNear), 0.0f,
+		-(right + left) / (right - left), -(top + bottom) / (top - bottom), -zNear / (zNear - zFar), 1.0f);
+}
+
+Matrix4 Matrix4::normalizedPerspectiveLH(
+	const float& fovy, const float& aspectRatio, const float& zNear, const float& zFar)
+{
+	float tanHalfFovy = tanf(fovy * 0.5f);
+	float zoomY = 1.0f / tanHalfFovy;
+	float zoomX = 1.0f / (aspectRatio * tanHalfFovy);
+
+	float right = zNear / zoomX;
+	float left = -right;
+	float top = zNear / zoomY;
+	float bottom = -top;
+
+	return normalizedFrustumLH(left, right, bottom, top, zNear, zFar);
+}
+
+Matrix4 Matrix4::normalizedFrustumLH(
+	const float& left, const float& right,
+	const float& bottom, const float& top,
+	const float& zNear, const float& zFar)
+{
+	return Matrix4(
+		(2.0f * zNear) / (right - left), 0.0f, 0.0f, 0.0f,
+		0.0f, (2.0f * zNear) / (top - bottom), 0.0f, 0.0f,
+		(right + left) / (right - left), (top + bottom) / (top - bottom), zFar / (zFar - zNear), 1.0f,
+		0.0f, 0.0f, -((zNear * zFar) / (zFar - zNear)), 0.0f);
 }
 
 Matrix4 Matrix4::lookToRH(const Vector3& direction, const Vector3& position, const Vector3& up)

@@ -81,10 +81,22 @@ namespace cliqCity
 		{
 			Vector4 u, v, w, t;
 
-			static Matrix4 orthographic(const float& left, const float& right, const float& bottom, const float& top, const float& zNear, const float& zFar);
-			static Matrix4 perspective(const float& fovy, const float& aspectRatio, const float& zNear, const float& zFar);
-			static Matrix4 frustum(const float& left, const float& right, const float& bottom, const float& top, const float& zNear, const float& zFar);
+			static Matrix4 orthographicRH(const float& left, const float& right, const float& bottom, const float& top, const float& zNear, const float& zFar);
+			static Matrix4 perspectiveRH(const float& fovy, const float& aspectRatio, const float& zNear, const float& zFar);
+			static Matrix4 frustumRH(const float& left, const float& right, const float& bottom, const float& top, const float& zNear, const float& zFar);
 
+			static Matrix4 orthographicLH(const float& left, const float& right, const float& bottom, const float& top, const float& zNear, const float& zFar);
+			static Matrix4 perspectiveLH(const float& fovy, const float& aspectRatio, const float& zNear, const float& zFar);
+			static Matrix4 frustumLH(const float& left, const float& right, const float& bottom, const float& top, const float& zNear, const float& zFar);
+
+			static Matrix4 normalizedOrthographicRH(const float& left, const float& right, const float& bottom, const float& top, const float& zNear, const float& zFar);
+			static Matrix4 normalizedPerspectiveRH(const float& fovy, const float& aspectRatio, const float& zNear, const float& zFar);
+			static Matrix4 normalizedFrustumRH(const float& left, const float& right, const float& bottom, const float& top, const float& zNear, const float& zFar);
+
+			static Matrix4 normalizedOrthographicLH(const float& left, const float& right, const float& bottom, const float& top, const float& zNear, const float& zFar);
+			static Matrix4 normalizedPerspectiveLH(const float& fovy, const float& aspectRatio, const float& zNear, const float& zFar);
+			static Matrix4 normalizedFrustumLH(const float& left, const float& right, const float& bottom, const float& top, const float& zNear, const float& zFar);
+			
 			static Matrix4 lookToRH(const Vector3& direction, const Vector3& position, const Vector3& up);
 			static Matrix4 lookAtRH(const Vector3& target, const Vector3& position, const Vector3& up);
 
