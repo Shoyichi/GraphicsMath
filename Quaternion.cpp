@@ -6,15 +6,15 @@ using namespace cliqCity::graphicsMath;
 
 Quaternion Quaternion::rollPitchYaw(const float& roll, const float& pitch, const float& yaw)
 {
-	float halfRoll = roll	* 0.5f;
-	float halfPitch = pitch * 0.5f;
-	float halfYaw = yaw	* 0.5f;
-	float cosHalfRoll = cosf(halfRoll);
-	float cosHalfPitch = cosf(halfPitch);
-	float cosHalfYaw = cosf(halfYaw);
-	float sinHalfRoll = sinf(halfRoll);
-	float sinHalfPitch = sinf(halfPitch);
-	float sinHalfYaw = sinf(halfYaw);
+	float halfRoll		= roll	* 0.5f;
+	float halfPitch		= pitch * 0.5f;
+	float halfYaw		= yaw	* 0.5f;
+	float cosHalfRoll	= cosf(halfRoll);
+	float cosHalfPitch	= cosf(halfPitch);
+	float cosHalfYaw	= cosf(halfYaw);
+	float sinHalfRoll	= sinf(halfRoll);
+	float sinHalfPitch	= sinf(halfPitch);
+	float sinHalfYaw	= sinf(halfYaw);
 	return Quaternion(
 		(cosHalfYaw * cosHalfPitch * cosHalfRoll) + (sinHalfYaw * sinHalfPitch * sinHalfRoll),
 		(cosHalfYaw * sinHalfPitch * cosHalfRoll) + (sinHalfYaw * cosHalfPitch * sinHalfRoll),
@@ -55,9 +55,9 @@ Matrix4 Quaternion::toMatrix4() const
 	float xz = v.x * v.z;
 	float yz = v.y * v.z;
 	return Matrix4(
-		1.0f - (2.0f * y2) - (2.0f * z2), (2.0f * xy) + (2.0f * wz), (2.0f * xz) + (2.0f * wy), 0.0f,
+		1.0f - (2.0f * y2) - (2.0f * z2), (2.0f * xy) + (2.0f * wz), (2.0f * xz) - (2.0f * wy), 0.0f,
 		(2.0f * xy) - (2.0f * wz), 1.0f - (2.0f * x2) - (2.0f * z2), (2.0f * yz) + (2.0f * wx), 0.0f,
-		(2.0f * xz) + (2.0f * wy), (2.0f * yz) - (2.0f * wx), 1.0f - (2.0f * x2) - (2.0f - y2), 0.0f,
+		(2.0f * xz) + (2.0f * wy), (2.0f * yz) - (2.0f * wx), 1.0f - (2.0f * x2) - (2.0f * y2), 0.0f,
 		0.0f, 0.0f, 0.0f, 1.0f
 		);
 }
