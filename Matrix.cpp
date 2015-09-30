@@ -36,12 +36,12 @@ Matrix2 Matrix2::transpose() const
 
 Matrix2 Matrix2::inverse() const
 {
-	return (1.0f / determinant()) * Matrix2(v.y, -u.y, -v.x, u.x);
+	return (1.0f / determinant()) * Matrix2(v.y, -u.y, -v.x, u.x);	// Transpose of Cofactors
 }
 
 float Matrix2::determinant() const
 {
-	return (u.x * v.y) - (v.x * u.y);
+	return (u.x * v.y) - (u.y * v.x);
 }
 
 Matrix2& Matrix2::operator+=(const Matrix2& rhs)
@@ -153,16 +153,25 @@ Matrix3 Matrix3::transpose() const
 
 Matrix3 Matrix3::inverse() const
 {
+	float c11 =	+Matrix2(v.y, v.z, w.y, w.z).determinant();
+	float c12 = -Matrix2(v.x, v.z, w.x, w.z).determinant();
+	float c13 = +Matrix2(v.x, v.y, w.x, w.y).determinant();
+	float c21 = -Matrix2(u.y, u.z, w.y, w.z).determinant();
+	float c22 = +Matrix2(u.x, u.z, w.x, w.z).determinant();
+	float c23 = -Matrix2(u.x, u.y, w.x, w.y).determinant();
+	float c31 = +Matrix2(u.y, u.z, v.y, v.z).determinant();
+	float c32 = -Matrix2(u.x, u.z, v.x, v.z).determinant();
+	float c33 = +Matrix2(u.x, u.y, v.x, v.y).determinant();
+
 	return (1.0f / determinant() *
-		Matrix3(
-		(v.y * w.z) - (v.z * w.y), (u.z * w.y) - (u.y * w.z), (u.y * v.z) - (u.z * v.y),
-		(v.z * w.x) - (v.x * w.z), (u.x * w.z) - (u.z * w.x), (u.z * v.x) - (u.x * v.z),
-		(v.x * w.y) - (v.y * w.x), (u.y * w.x) - (u.x * w.y), (u.x * v.y) - (u.y * v.x)));
+		Matrix3(c11, c21, c31,
+				c12, c22, c32,
+				c13, c23, c33));	// Transpose of cofactors
 }
 
 float Matrix3::determinant() const
 {
-	return dot(u, cross(v, w));
+	return dot(cross(u, v), w);
 }
 // Compound Assignment
 
@@ -264,7 +273,7 @@ Matrix4 Matrix4::lookToRH(const Vector3& direction, const Vector3& position, con
 
 Matrix4 Matrix4::lookAtRH(const Vector3& target, const Vector3& position, const Vector3& up)
 {
-	Vector4 f = normalize(Vector4(target - position, 0.0f));
+	Vector4 f = -normalize(Vector4(target - position, 0.0f));
 	Vector4 s = normalize(cross(f, up));
 	Vector4 u = cross(s, f);
 	Vector4 t = Vector4(position, 1.0f);
@@ -279,7 +288,7 @@ Matrix4 Matrix4::lookToLH(const Vector3& direction, const Vector3& position, con
 
 Matrix4 Matrix4::lookAtLH(const Vector3& target, const Vector3& position, const Vector3& up)
 {
-	Vector4 f = -normalize(Vector4(target - position, 0.0f));
+	Vector4 f = normalize(Vector4(target - position, 0.0f));
 	Vector4 s = normalize(cross(f, up));
 	Vector4 u = cross(s, f);
 	Vector4 t = Vector4(position, 1.0f);
@@ -394,43 +403,43 @@ Matrix4 Matrix4::transpose() const
 
 Matrix4 Matrix4::inverse() const
 {
-	float detC11 = Matrix3(v.y, v.z, v.w, w.y, w.z, w.w, t.y, t.z, t.w).determinant();
-	float detC12 = Matrix3(v.x, v.z, v.w, w.x, w.z, w.w, t.x, t.z, t.w).determinant();
-	float detC13 = Matrix3(v.x, v.y, v.w, w.x, w.y, w.w, t.x, t.y, t.w).determinant();
-	float detC14 = Matrix3(v.x, v.y, v.z, w.x, w.y, w.z, t.x, t.y, t.z).determinant();
+	float c11 = +Matrix3(v.y, v.z, v.w, w.y, w.z, w.w, t.y, t.z, t.w).determinant();
+	float c12 = -Matrix3(v.x, v.z, v.w, w.x, w.z, w.w, t.x, t.z, t.w).determinant();
+	float c13 = +Matrix3(v.x, v.y, v.w, w.x, w.y, w.w, t.x, t.y, t.w).determinant();
+	float c14 = -Matrix3(v.x, v.y, v.z, w.x, w.y, w.z, t.x, t.y, t.z).determinant();
 
-	float detC21 = Matrix3(u.y, u.z, u.w, w.y, w.z, w.w, t.y, t.z, t.w).determinant();
-	float detC22 = Matrix3(u.x, u.z, u.w, w.x, w.z, w.w, t.x, t.z, t.w).determinant();
-	float detC23 = Matrix3(u.x, u.y, u.w, w.x, w.y, w.w, t.x, t.y, t.w).determinant();
-	float detC24 = Matrix3(u.x, u.y, u.z, w.x, w.y, w.z, t.x, t.y, t.z).determinant();
+	float c21 = -Matrix3(u.y, u.z, u.w, w.y, w.z, w.w, t.y, t.z, t.w).determinant();
+	float c22 = +Matrix3(u.x, u.z, u.w, w.x, w.z, w.w, t.x, t.z, t.w).determinant();
+	float c23 = -Matrix3(u.x, u.y, u.w, w.x, w.y, w.w, t.x, t.y, t.w).determinant();
+	float c24 = +Matrix3(u.x, u.y, u.z, w.x, w.y, w.z, t.x, t.y, t.z).determinant();
 
-	float detC31 = Matrix3(u.y, u.z, u.w, v.y, v.z, v.w, t.y, t.z, t.w).determinant();
-	float detC32 = Matrix3(u.x, u.z, u.w, v.x, v.z, v.w, t.x, t.z, t.w).determinant();
-	float detC33 = Matrix3(u.x, u.y, u.w, v.x, v.y, v.w, t.x, t.y, t.w).determinant();
-	float detC34 = Matrix3(u.x, u.y, u.z, v.x, v.y, v.z, t.x, t.y, t.z).determinant();
+	float c31 = +Matrix3(u.y, u.z, u.w, v.y, v.z, v.w, t.y, t.z, t.w).determinant();
+	float c32 = -Matrix3(u.x, u.z, u.w, v.x, v.z, v.w, t.x, t.z, t.w).determinant();
+	float c33 = +Matrix3(u.x, u.y, u.w, v.x, v.y, v.w, t.x, t.y, t.w).determinant();
+	float c34 = -Matrix3(u.x, u.y, u.z, v.x, v.y, v.z, t.x, t.y, t.z).determinant();
 
-	float detC41 = Matrix3(u.y, u.z, u.w, v.y, v.z, v.w, w.y, w.z, w.w).determinant();
-	float detC42 = Matrix3(u.x, u.z, u.w, v.x, v.z, v.w, w.x, w.z, w.w).determinant();
-	float detC43 = Matrix3(u.x, u.y, u.w, v.x, v.y, v.w, w.x, w.y, w.w).determinant();
-	float detC44 = Matrix3(u.x, u.y, u.z, v.x, v.y, v.z, w.x, w.y, w.z).determinant();
+	float c41 = -Matrix3(u.y, u.z, u.w, v.y, v.z, v.w, w.y, w.z, w.w).determinant();
+	float c42 = +Matrix3(u.x, u.z, u.w, v.x, v.z, v.w, w.x, w.z, w.w).determinant();
+	float c43 = -Matrix3(u.x, u.y, u.w, v.x, v.y, v.w, w.x, w.y, w.w).determinant();
+	float c44 = +Matrix3(u.x, u.y, u.z, v.x, v.y, v.z, w.x, w.y, w.z).determinant();
 
-	float determinant = (u.x * detC11) - (u.y * detC12) + (u.z * detC13) - (u.w * detC14);
+	float determinant = (u.x * c11) + (u.y * c12) + (u.z * c13) + (u.w * c14);
 	return (1.0f / determinant) *
 		Matrix4(
-		+detC11, -detC21, +detC31, -detC41,
-		-detC12, +detC22, -detC32, +detC42,
-		+detC13, -detC23, +detC33, -detC43,
-		-detC14, +detC24, -detC34, +detC44);
+			c11, c21, c31, c41,
+			c12, c22, c32, c42,
+			c13, c23, c33, c43,
+			c14, c24, c34, c44);
 }
 
 float Matrix4::determinant() const
 {
-	Matrix3 c11 = Matrix3(v.y, v.z, v.w, w.y, w.z, w.w, t.y, t.z, t.w);
-	Matrix3 c12 = Matrix3( v.x, v.z, v.w, w.x, w.z, w.w, t.x, t.z, t.w);
-	Matrix3 c13 = Matrix3(v.x, v.y, v.w, w.x, w.y, w.w, t.x, t.y, t.w);
-	Matrix3 c14 = Matrix3( v.x, v.y, v.z, w.x, w.y, w.z, t.x, t.y, t.z);
+	float c11 = +Matrix3(v.y, v.z, v.w, w.y, w.z, w.w, t.y, t.z, t.w).determinant();
+	float c12 = -Matrix3(v.x, v.z, v.w, w.x, w.z, w.w, t.x, t.z, t.w).determinant();
+	float c13 = +Matrix3(v.x, v.y, v.w, w.x, w.y, w.w, t.x, t.y, t.w).determinant();
+	float c14 = -Matrix3(v.x, v.y, v.z, w.x, w.y, w.z, t.x, t.y, t.z).determinant();
 
-	return (u.x * c11.determinant()) - (u.y * c12.determinant()) + (u.z * c13.determinant()) - (u.w * c14.determinant());
+	return (u.x * c11) + (u.y * c12) + (u.z * c13) + (u.w * c14);
 }
 
 // Compound Assignment
