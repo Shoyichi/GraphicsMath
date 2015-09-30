@@ -19,7 +19,7 @@ Quaternion Quaternion::rollPitchYaw(const float& roll, const float& pitch, const
 		(cosHalfYaw * cosHalfPitch * cosHalfRoll) + (sinHalfYaw * sinHalfPitch * sinHalfRoll),
 		(cosHalfYaw * sinHalfPitch * cosHalfRoll) + (sinHalfYaw * cosHalfPitch * sinHalfRoll),
 		(sinHalfYaw * cosHalfPitch * cosHalfRoll) - (cosHalfYaw * sinHalfPitch * sinHalfRoll),
-		(cosHalfYaw * cosHalfPitch * sinHalfYaw) - (sinHalfYaw * sinHalfPitch * cosHalfRoll));
+		(cosHalfYaw * cosHalfPitch * sinHalfRoll) - (sinHalfYaw * sinHalfPitch * cosHalfRoll));
 }
 
 Quaternion Quaternion::angleAxis(const float& angle, const Vector3& axis)
