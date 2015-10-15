@@ -28,11 +28,6 @@ Quaternion Quaternion::angleAxis(const float& angle, const Vector3& axis)
 	return Quaternion(cos(halfAngle), sin(halfAngle) * axis);
 }
 
-float Quaternion::magnitude() const
-{
-	return sqrt((w * w) + v.magnitude2());
-}
-
 Quaternion Quaternion::conjugate() const
 {
 	return Quaternion(w, -v.x, -v.y, -v.z);
@@ -96,9 +91,14 @@ Quaternion& Quaternion::operator-()
 	return *this;
 }
 
+float cliqCity::graphicsMath::magnitude(const Quaternion& quaternion)
+{
+	return quaternion.w * quaternion.w + quaternion.v.x * quaternion.v.x + quaternion.v.y * quaternion.v.y + quaternion.v.z * quaternion.v.z;
+}
+
 Quaternion cliqCity::graphicsMath::normalize(const Quaternion& quaternion)
 {
-	return Quaternion(quaternion) /= quaternion.magnitude();
+	return quaternion / magnitude(quaternion);
 }
 
 float cliqCity::graphicsMath::dot(const Quaternion& lhs, const Quaternion& rhs)

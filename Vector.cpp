@@ -6,16 +6,6 @@ using namespace cliqCity::graphicsMath;
 
 // Vector2
 
-float Vector2::magnitude2() const
-{
-	return dot(*this, *this);
-}
-
-float Vector2::magnitude() const
-{
-	return sqrtf(magnitude2());
-}
-
 // Compound Assignment (Vector2)
 
 Vector2& Vector2::operator+=(const Vector2& rhs)
@@ -99,16 +89,6 @@ float& Vector2::operator[](const unsigned int& index)
 }
 
 // Vector3
-
-float Vector3::magnitude2() const
-{
-	return dot(*this, *this);
-}
-
-float Vector3::magnitude() const
-{
-	return sqrtf(magnitude2());
-}
 
 // Compound Assignment (Vector3)
 
@@ -206,16 +186,6 @@ Vector3::operator Vector2()
 }
 
 // Vector4
-
-float Vector4::magnitude2() const
-{
-	return dot(*this, *this);
-}
-
-float Vector4::magnitude() const
-{
-	return sqrtf(magnitude2());
-}
 
 // Compound Assignment (Vector4)
 
@@ -315,6 +285,11 @@ float& Vector4::operator[](const unsigned int& index)
 	return reinterpret_cast<float *>(this)[index];
 }
 
+Vector4::operator float128_arg_t()
+{
+	return cliqCity::simd::Set(this->x, this->y, this->z, this->w);
+}
+
 Vector4::operator Vector3()
 {
 	return Vector3(this->x, this->y, this->z);
@@ -329,25 +304,55 @@ Vector4::operator Vector2()
 
 Vector3 cliqCity::graphicsMath::cross(const Vector3& lhs, const Vector3& rhs)
 {
-	return Vector3(
+	return {
 		(lhs.y * rhs.z) - (lhs.z * rhs.y),
 		(lhs.z * rhs.x) - (lhs.x * rhs.z),
-		(lhs.x * rhs.y) - (lhs.y * rhs.x));
+		(lhs.x * rhs.y) - (lhs.y * rhs.x) };
+}
+
+float cliqCity::graphicsMath::magnitudeSquared(const Vector2& vector)
+{
+	return dot(vector, vector);
+}
+
+float cliqCity::graphicsMath::magnitudeSquared(const Vector3& vector)
+{
+	return dot(vector, vector);
+}
+
+float cliqCity::graphicsMath::magnitudeSquared(const Vector4& vector)
+{
+	return dot(vector, vector);
+}
+
+float cliqCity::graphicsMath::magnitude(const Vector2& vector)
+{
+	return sqrtf(dot(vector, vector));
+}
+
+float cliqCity::graphicsMath::magnitude(const Vector3& vector)
+{
+	return sqrtf(dot(vector, vector));
+}
+
+float cliqCity::graphicsMath::magnitude(const Vector4& vector)
+{
+	return sqrtf(dot(vector, vector));
 }
 
 Vector2 cliqCity::graphicsMath::normalize(const Vector2& vector)
 {
-	return vector / vector.magnitude();
+	return vector / magnitude(vector);
 }
 
 Vector3 cliqCity::graphicsMath::normalize(const Vector3& vector)
 {
-	return vector / vector.magnitude();
+	return vector / magnitude(vector);
 }
 
 Vector4 cliqCity::graphicsMath::normalize(const Vector4& vector)
 {
-	return vector / vector.magnitude();
+	return vector / magnitude(vector);
 }
 
 float cliqCity::graphicsMath::dot(const Vector2& lhs, const Vector2& rhs)
