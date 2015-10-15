@@ -93,7 +93,7 @@ Quaternion& Quaternion::operator-()
 
 float cliqCity::graphicsMath::magnitude(const Quaternion& quaternion)
 {
-	return quaternion.w * quaternion.w + quaternion.v.x * quaternion.v.x + quaternion.v.y * quaternion.v.y + quaternion.v.z * quaternion.v.z;
+	return sqrtf(quaternion.w * quaternion.w + quaternion.v.x * quaternion.v.x + quaternion.v.y * quaternion.v.y + quaternion.v.z * quaternion.v.z);
 }
 
 Quaternion cliqCity::graphicsMath::normalize(const Quaternion& quaternion)
