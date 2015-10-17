@@ -81,9 +81,18 @@ namespace cliqCity
 
 		struct CGM_DLL Vector4
 		{
-			float x, y, z, w;
+			union
+			{
+				struct
+				{
+					float x, y, z, w;
+				};
+				float128_t v;
+			};
 
-			Vector4(float x, float y, float z, float w) : x(x), y(y), z(z), w(w) {};
+			Vector4(float x, float y, float z, float w) : x(x), y(y), z(z), w(w) {
+			
+			};
 			Vector4(float v) : Vector4(v, v, v, v) {};
 			Vector4(const Vector4& vector4) : Vector4(vector4.x, vector4.y, vector4.z, vector4.w) {};
 			Vector4() : Vector4(0.0f) {};
@@ -94,7 +103,7 @@ namespace cliqCity
 			Vector4(const Vector2& vector2, float z, float w) : Vector4(vector2.x, vector2.y, z, w) {};
 			Vector4(const Vector2& vector2) : Vector4(vector2.x, vector2.y, 0.0f, 0.0f) {};
 
-			Vector4(const float128_t& v) : Vector4(v.m128_f32[1], v.m128_f32[2], v.m128_f32[3], v.m128_f32[0]) {};
+			Vector4(const float128_t& v) : v(v) {};
 
 			Vector4& operator+=(const Vector4& rhs);
 			Vector4& operator-=(const Vector4& rhs);
@@ -116,9 +125,9 @@ namespace cliqCity
 
 			// Typecast
 
-			inline operator float128_arg_t&()
+			inline operator float128_arg_t() const
 			{
-				return (cliqCity::simd::Set(this->x, this->y, this->z, this->w));
+				return v;
 			}
 
 			inline operator Vector3()
