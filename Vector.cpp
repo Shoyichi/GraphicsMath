@@ -1,6 +1,9 @@
 #define _USE_MATH_DEFINES
 #include <cmath>
 #include "Vector.hpp"
+#include <stdio.h>
+
+#define SIMD 1
 
 using namespace cliqCity::graphicsMath;
 
@@ -191,10 +194,7 @@ Vector3::operator Vector2()
 
 Vector4& Vector4::operator+=(const Vector4& rhs)
 {
-	this->x += rhs.x;
-	this->y += rhs.y;
-	this->z += rhs.z;
-	this->w += rhs.w;
+	*this = *this + rhs;
 	return *this;
 }
 
@@ -283,21 +283,6 @@ Vector4& Vector4::operator-()
 float& Vector4::operator[](const unsigned int& index)
 {
 	return reinterpret_cast<float *>(this)[index];
-}
-
-Vector4::operator float128_arg_t()
-{
-	return cliqCity::simd::Set(this->x, this->y, this->z, this->w);
-}
-
-Vector4::operator Vector3()
-{
-	return Vector3(this->x, this->y, this->z);
-}
-
-Vector4::operator Vector2()
-{
-	return Vector2(this->x, this->y);
 }
 
 // Dot, Cross, Normalize
@@ -478,7 +463,11 @@ Vector3 cliqCity::graphicsMath::operator*(const float& lhs, const Vector3& rhs)
 
 Vector4 cliqCity::graphicsMath::operator+(const Vector4& lhs, const Vector4& rhs)
 {
+#ifdef SIMD
+	return Vector4(simd::Add((float128_arg_t&)(lhs), (float128_arg_t&)(rhs)));
+#else
 	return Vector4(lhs) += rhs;
+#endif
 }
 
 Vector4 cliqCity::graphicsMath::operator-(const Vector4& lhs, const Vector4& rhs)

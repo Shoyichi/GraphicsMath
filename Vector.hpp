@@ -94,6 +94,8 @@ namespace cliqCity
 			Vector4(const Vector2& vector2, float z, float w) : Vector4(vector2.x, vector2.y, z, w) {};
 			Vector4(const Vector2& vector2) : Vector4(vector2.x, vector2.y, 0.0f, 0.0f) {};
 
+			Vector4(const float128_t& v) : Vector4(v.m128_f32[1], v.m128_f32[2], v.m128_f32[3], v.m128_f32[0]) {};
+
 			Vector4& operator+=(const Vector4& rhs);
 			Vector4& operator-=(const Vector4& rhs);
 			Vector4& operator*=(const Vector4& rhs);
@@ -114,9 +116,20 @@ namespace cliqCity
 
 			// Typecast
 
-			inline operator float128_arg_t();
-			inline operator Vector3();
-			inline operator Vector2();
+			inline operator float128_arg_t&()
+			{
+				return (cliqCity::simd::Set(this->x, this->y, this->z, this->w));
+			}
+
+			inline operator Vector3()
+			{
+				return { this->x, this->y, this->z };
+			}
+
+			inline operator Vector2()
+			{
+				return { this->x, this->y };
+			}
 		};
 
 		CGM_DLL Vector3 cross(const Vector3& lhs, const Vector3& rhs);
