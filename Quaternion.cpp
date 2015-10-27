@@ -62,6 +62,27 @@ Matrix3 Quaternion::toMatrix3() const
 	return static_cast<Matrix3>(toMatrix4());
 }
 
+Vector3 Quaternion::toEuler() const
+{
+	Vector3 euler;
+
+	auto sp = -2.0f * (v.y*v.z - w*v.x);
+	if (fabs(sp) > 0.9999f)
+	{
+		euler.x = 1.570796f * sp;
+		euler.y = atan2(-v.x*v.z + w*v.y, 0.5f - v.y*v.y - v.z*v.z);
+		euler.z = 0.0f;
+	}
+	else
+	{
+		euler.x = asin(sp);
+		euler.y = atan2(v.x*v.z + w*v.y, 0.5f - v.x*v.x - v.y*v.y);
+		euler.z = atan2(v.x*v.y + w*v.z, 0.5f - v.x*v.x - v.z*v.z);
+	}
+
+	return euler;
+}
+
 Quaternion& Quaternion::operator*=(const Quaternion& rhs)
 {
 	float rW = (w * rhs.w) - dot(v, rhs.v);
