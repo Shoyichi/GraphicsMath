@@ -134,6 +134,11 @@ float cliqCity::graphicsMath::dot(const Quaternion& lhs, const Quaternion& rhs)
 	return (lhs.w * rhs.w) + dot(lhs.v, rhs.v);
 }
 
+Quaternion cliqCity::graphicsMath::operator+(const Quaternion& lhs, const Quaternion& rhs)
+{
+	return Quaternion(lhs) += rhs;
+}
+
 Quaternion cliqCity::graphicsMath::operator*(const Quaternion& lhs, const Quaternion& rhs)
 {
 	return Quaternion(lhs) *= rhs;

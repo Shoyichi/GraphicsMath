@@ -47,6 +47,7 @@ namespace cliqCity
 		CGM_DLL Quaternion normalize(const Quaternion& quaternion);
 		CGM_DLL float dot(const Quaternion& lhs, const Quaternion& rhs);
 
+		CGM_DLL Quaternion operator+(const Quaternion& lhs, const Quaternion& rhs);
 		CGM_DLL Quaternion operator*(const Quaternion& lhs, const Quaternion& rhs);
 		CGM_DLL Quaternion operator*(const Quaternion& lhs, const float& rhs);
 		CGM_DLL Vector3 operator*(const Vector3& lhs, const Quaternion& rhs);
