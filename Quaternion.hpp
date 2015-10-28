@@ -36,6 +36,7 @@ namespace cliqCity
 			Matrix3 toMatrix3() const;
 			Vector3 toEuler() const;
 
+			Quaternion& operator+=(const Quaternion& rhs);
 			Quaternion& operator*=(const Quaternion& rhs);
 			Quaternion& operator*=(const float& rhs);
 			Quaternion& operator/=(const float& rhs);

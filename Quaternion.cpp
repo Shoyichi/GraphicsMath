@@ -83,6 +83,13 @@ Vector3 Quaternion::toEuler() const
 	return euler;
 }
 
+Quaternion& Quaternion::operator+=(const Quaternion& rhs)
+{
+	w += rhs.w;
+	v += rhs.v;
+	return *this;
+}
+
 Quaternion& Quaternion::operator*=(const Quaternion& rhs)
 {
 	float rW = (w * rhs.w) - dot(v, rhs.v);
