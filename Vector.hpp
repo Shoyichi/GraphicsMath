@@ -18,12 +18,21 @@ namespace cliqCity
 	{
 		struct CGM_DLL Vector2
 		{
-			float x, y;
+			union 
+			{
+				struct
+				{
+					float x, y;
+				};
 
-			Vector2(float x, float y) : x(x), y(y) {};
-			Vector2(float v) : x(v), y(v) {};
-			Vector2(const Vector2& vector2) : Vector2(vector2.x, vector2.y) {};
-			Vector2() : Vector2(0.0f) {};
+				float pCols[2];
+			};
+
+
+			inline Vector2(float x, float y) : x(x), y(y) {};
+			inline Vector2(float v) : x(v), y(v) {};
+			inline Vector2(const Vector2& vector2) : Vector2(vector2.x, vector2.y) {};
+			inline Vector2() : Vector2(0.0f) {};
 
 			Vector2& operator+=(const Vector2& rhs);
 			Vector2& operator-=(const Vector2& rhs);
@@ -39,14 +48,22 @@ namespace cliqCity
 			Vector2& operator++();
 			Vector2& operator--();
 			Vector2& operator=(const Vector2& rhs);
-			Vector2& operator-();
+			Vector2	 operator-();
 
 			float& operator[](const unsigned int& index);
 		};
 
 		struct CGM_DLL Vector3
 		{
-			float x, y, z;
+			union 
+			{
+				struct
+				{
+					float x, y, z;
+				};
+
+				float pCols[3];
+			};
 
 			Vector3(float x, float y, float z) : x(x), y(y), z(z) {};
 			Vector3(float v) : x(v), y(v), z(v) {};
@@ -70,7 +87,7 @@ namespace cliqCity
 			Vector3& operator++();
 			Vector3& operator--();
 			Vector3& operator=(const Vector3& rhs);
-			Vector3& operator-();
+			Vector3  operator-();
 
 			float& operator[](const unsigned int& index);
 
@@ -87,7 +104,8 @@ namespace cliqCity
 				{
 					float x, y, z, w;
 				};
-				float128_t v;
+
+				float pCols[4];
 			};
 
 			Vector4(float x, float y, float z, float w) : x(x), y(y), z(z), w(w) {
@@ -103,7 +121,7 @@ namespace cliqCity
 			Vector4(const Vector2& vector2, float z, float w) : Vector4(vector2.x, vector2.y, z, w) {};
 			Vector4(const Vector2& vector2) : Vector4(vector2.x, vector2.y, 0.0f, 0.0f) {};
 
-			Vector4(const float128_t& v) : v(v) {};
+			//Vector4(const float128_t& v) : v(v) {};
 
 			Vector4& operator+=(const Vector4& rhs);
 			Vector4& operator-=(const Vector4& rhs);
@@ -119,16 +137,16 @@ namespace cliqCity
 			Vector4& operator++();
 			Vector4& operator--();
 			Vector4& operator=(const Vector4& rhs);
-			Vector4& operator-();
+			Vector4 operator-();
 
 			float& operator[](const unsigned int& index);
 
 			// Typecast
 
-			inline operator float128_arg_t() const
+		/*	inline operator float128_arg_t() const
 			{
 				return v;
-			}
+			}*/
 
 			inline operator Vector3()
 			{
@@ -141,71 +159,8 @@ namespace cliqCity
 			}
 		};
 
-		CGM_DLL Vector3 cross(const Vector3& lhs, const Vector3& rhs);
-
-		CGM_DLL float magnitudeSquared(const Vector2& vector);
-		CGM_DLL float magnitudeSquared(const Vector3& vector);
-		CGM_DLL float magnitudeSquared(const Vector4& vector);
-
-		CGM_DLL float magnitude(const Vector2& vector);
-		CGM_DLL float magnitude(const Vector3& vector);
-		CGM_DLL float magnitude(const Vector4& vector);
-
-		CGM_DLL Vector2 normalize(const Vector2& vector);
-		CGM_DLL Vector3 normalize(const Vector3& vector);
-		CGM_DLL Vector4 normalize(const Vector4& vector);
-
-		CGM_DLL float dot(const Vector2& lhs, const Vector2& rhs);
-		CGM_DLL float dot(const Vector3& lhs, const Vector3& rhs);
-		CGM_DLL float dot(const Vector4& lhs, const Vector4& rhs);
-
-		CGM_DLL Vector2 lerp(const Vector2& lhs, const Vector2& rhs, const float& t);
-		CGM_DLL Vector3 lerp(const Vector3& lhs, const Vector3& rhs, const float& t);
-		CGM_DLL Vector4 lerp(const Vector4& lhs, const Vector4& rhs, const float& t);
-
-		// Binary (Vector2)
-
-		CGM_DLL Vector2 operator+(const Vector2& lhs, const Vector2& rhs);
-		CGM_DLL Vector2 operator-(const Vector2& lhs, const Vector2& rhs);
 		CGM_DLL Vector2 operator*(const Vector2& lhs, const Vector2& rhs);
-
-		CGM_DLL Vector2 operator+(const Vector2& lhs, const float& rhs);
-		CGM_DLL Vector2 operator-(const Vector2& lhs, const float& rhs);
-		CGM_DLL Vector2 operator*(const Vector2& lhs, const float& rhs);
-		CGM_DLL Vector2 operator/(const Vector2& lhs, const float& rhs);
-
-		CGM_DLL Vector2 operator+(const float& lhs, const Vector2& rhs);
-		CGM_DLL Vector2 operator-(const float& lhs, const Vector2& rhs);
-		CGM_DLL Vector2 operator*(const float& lhs, const Vector2& rhs);
-
-		// Binary (Vector3)
-
-		CGM_DLL Vector3 operator+(const Vector3& lhs, const Vector3& rhs);
-		CGM_DLL Vector3 operator-(const Vector3& lhs, const Vector3& rhs);
 		CGM_DLL Vector3 operator*(const Vector3& lhs, const Vector3& rhs);
-
-		CGM_DLL Vector3 operator+(const Vector3& lhs, const float& rhs);
-		CGM_DLL Vector3 operator-(const Vector3& lhs, const float& rhs);
-		CGM_DLL Vector3 operator*(const Vector3& lhs, const float& rhs);
-		CGM_DLL Vector3 operator/(const Vector3& lhs, const float& rhs);
-
-		CGM_DLL Vector3 operator+(const float& lhs, const Vector3& rhs);
-		CGM_DLL Vector3 operator-(const float& lhs, const Vector3& rhs);
-		CGM_DLL Vector3 operator*(const float& lhs, const Vector3& rhs);
-
-		// Binary (Vector4)
-
-		CGM_DLL Vector4 operator+(const Vector4& lhs, const Vector4& rhs);
-		CGM_DLL Vector4 operator-(const Vector4& lhs, const Vector4& rhs);
 		CGM_DLL Vector4 operator*(const Vector4& lhs, const Vector4& rhs);
-
-		CGM_DLL Vector4 operator+(const Vector4& lhs, const float& rhs);
-		CGM_DLL Vector4 operator-(const Vector4& lhs, const float& rhs);
-		CGM_DLL Vector4 operator*(const Vector4& lhs, const float& rhs);
-		CGM_DLL Vector4 operator/(const Vector4& lhs, const float& rhs);
-
-		CGM_DLL Vector4 operator+(const float& lhs, const Vector4& rhs);
-		CGM_DLL Vector4 operator-(const float& lhs, const Vector4& rhs);
-		CGM_DLL Vector4 operator*(const float& lhs, const Vector4& rhs);
 	}
 }
