@@ -2,6 +2,7 @@
 #include "Vector.hpp"
 #include "Matrix.hpp"
 #include "Quaternion.hpp"
+#include "Operations.hpp"
 
 typedef cliqCity::graphicsMath::Matrix4		mat4f;
 typedef cliqCity::graphicsMath::Matrix3		mat3f;
