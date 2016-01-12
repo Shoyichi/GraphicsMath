@@ -27,7 +27,7 @@
     <ClInclude Include="cgm.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Operations.h">
+    <ClInclude Include="Operations.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

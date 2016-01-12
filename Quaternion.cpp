@@ -1,7 +1,7 @@
 #define _USE_MATH_DEFINES
 #include <cmath>
 #include "Quaternion.hpp"
-#include "Operations.h"
+#include "Operations.hpp"
 
 using namespace cliqCity::graphicsMath;
 
