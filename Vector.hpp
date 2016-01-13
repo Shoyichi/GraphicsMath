@@ -4,7 +4,7 @@
 //	Defines 2D, 3D, and 4D vectors and behavior
 
 #pragma once
-#include "simd\SIMD\simd.h"
+//#include "simd\SIMD\simd.h"
 
 #ifdef _WINDLL
 #define CGM_DLL __declspec(dllexport)
@@ -159,8 +159,47 @@ namespace cliqCity
 			}
 		};
 
+		CGM_DLL Vector2 operator+(const Vector2& lhs, const Vector2& rhs);
+		CGM_DLL Vector2 operator-(const Vector2& lhs, const Vector2& rhs);
 		CGM_DLL Vector2 operator*(const Vector2& lhs, const Vector2& rhs);
+
+		CGM_DLL Vector2 operator+(const Vector2& lhs, const float& rhs);
+		CGM_DLL Vector2 operator-(const Vector2& lhs, const float& rhs);
+		CGM_DLL Vector2 operator*(const Vector2& lhs, const float& rhs);
+		CGM_DLL Vector2 operator/(const Vector2& lhs, const float& rhs);
+
+		CGM_DLL Vector2 operator+(const float& lhs, const Vector2& rhs);
+		CGM_DLL Vector2 operator-(const float& lhs, const Vector2& rhs);
+		CGM_DLL Vector2 operator*(const float& lhs, const Vector2& rhs);
+
+		// Binary (Vector3)
+
+		CGM_DLL Vector3 operator+(const Vector3& lhs, const Vector3& rhs);
+		CGM_DLL Vector3 operator-(const Vector3& lhs, const Vector3& rhs);
 		CGM_DLL Vector3 operator*(const Vector3& lhs, const Vector3& rhs);
+
+		CGM_DLL Vector3 operator+(const Vector3& lhs, const float& rhs);
+		CGM_DLL Vector3 operator-(const Vector3& lhs, const float& rhs);
+		CGM_DLL Vector3 operator*(const Vector3& lhs, const float& rhs);
+		CGM_DLL Vector3 operator/(const Vector3& lhs, const float& rhs);
+
+		CGM_DLL Vector3 operator+(const float& lhs, const Vector3& rhs);
+		CGM_DLL Vector3 operator-(const float& lhs, const Vector3& rhs);
+		CGM_DLL Vector3 operator*(const float& lhs, const Vector3& rhs);
+
+		// Binary (Vector4)
+
+		CGM_DLL Vector4 operator+(const Vector4& lhs, const Vector4& rhs);
+		CGM_DLL Vector4 operator-(const Vector4& lhs, const Vector4& rhs);
 		CGM_DLL Vector4 operator*(const Vector4& lhs, const Vector4& rhs);
+
+		CGM_DLL Vector4 operator+(const Vector4& lhs, const float& rhs);
+		CGM_DLL Vector4 operator-(const Vector4& lhs, const float& rhs);
+		CGM_DLL Vector4 operator*(const Vector4& lhs, const float& rhs);
+		CGM_DLL Vector4 operator/(const Vector4& lhs, const float& rhs);
+
+		CGM_DLL Vector4 operator+(const float& lhs, const Vector4& rhs);
+		CGM_DLL Vector4 operator-(const float& lhs, const Vector4& rhs);
+		CGM_DLL Vector4 operator*(const float& lhs, const Vector4& rhs);
 	}
 }

@@ -318,17 +318,161 @@ inline float& Vector4::operator[](const unsigned int& index)
 	return pCols[index];
 }
 
-Vector2 cliqCity::graphicsMath::operator*(const Vector2& lhs, const Vector2& rhs)
+// Binary (Vector2)
+
+inline Vector2 cliqCity::graphicsMath::operator+(const Vector2& lhs, const Vector2& rhs)
 {
-	return Vector2(lhs) *= rhs;
+	return{ lhs.x + rhs.x, lhs.y + rhs.y };
 }
 
-Vector3 cliqCity::graphicsMath::operator*(const Vector3& lhs, const Vector3& rhs)
+inline Vector2 cliqCity::graphicsMath::operator-(const Vector2& lhs, const Vector2& rhs)
 {
-	return Vector3(lhs) *= rhs;
+	return{ lhs.x - rhs.x, lhs.y - rhs.y };
 }
 
-Vector4 cliqCity::graphicsMath::operator*(const Vector4& lhs, const Vector4& rhs)
+inline Vector2 cliqCity::graphicsMath::operator*(const Vector2& lhs, const Vector2& rhs)
 {
-	return Vector4(lhs) *= rhs;
+	return{ lhs.x * rhs.x, lhs.y * rhs.y };
+}
+
+inline Vector2 cliqCity::graphicsMath::operator+(const Vector2& lhs, const float& rhs)
+{
+	return{ lhs.x + rhs, lhs.y + rhs };
+}
+
+inline Vector2 cliqCity::graphicsMath::operator-(const Vector2& lhs, const float& rhs)
+{
+	return{ lhs.x - rhs, lhs.y - rhs };
+}
+
+inline Vector2 cliqCity::graphicsMath::operator*(const Vector2& lhs, const float& rhs)
+{
+	return{ lhs.x * rhs, lhs.y * rhs };
+}
+
+inline Vector2 cliqCity::graphicsMath::operator/(const Vector2& lhs, const float& rhs)
+{
+	float inv = (1.0f / rhs);
+	return{ lhs.x * inv, lhs.y * inv };
+}
+
+inline Vector2 cliqCity::graphicsMath::operator+(const float& lhs, const Vector2& rhs)
+{
+	return rhs + lhs;
+}
+
+inline Vector2 cliqCity::graphicsMath::operator-(const float& lhs, const Vector2& rhs)
+{
+	return rhs - lhs;
+}
+
+inline Vector2 cliqCity::graphicsMath::operator*(const float& lhs, const Vector2& rhs)
+{
+	return rhs * lhs;
+}
+
+// Binary (Vector3)
+
+inline Vector3 cliqCity::graphicsMath::operator+(const Vector3& lhs, const Vector3& rhs)
+{
+	return{ lhs.x + rhs.x, lhs.y + rhs.y, lhs.z + rhs.z };
+}
+
+inline Vector3 cliqCity::graphicsMath::operator-(const Vector3& lhs, const Vector3& rhs)
+{
+	return{ lhs.x - rhs.x, lhs.y - rhs.y, lhs.z - rhs.z };
+}
+
+inline Vector3 cliqCity::graphicsMath::operator*(const Vector3& lhs, const Vector3& rhs)
+{
+	return{ lhs.x * rhs.x, lhs.y * rhs.y, lhs.z * rhs.z };
+}
+
+inline Vector3 cliqCity::graphicsMath::operator+(const Vector3& lhs, const float& rhs)
+{
+	return{ lhs.x + rhs, lhs.y + rhs, lhs.z + rhs };
+}
+
+inline Vector3 cliqCity::graphicsMath::operator-(const Vector3& lhs, const float& rhs)
+{
+	return{ lhs.x - rhs, lhs.y - rhs, lhs.z - rhs };
+}
+
+inline Vector3 cliqCity::graphicsMath::operator*(const Vector3& lhs, const float& rhs)
+{
+	return{ lhs.x * rhs, lhs.y * rhs, lhs.z * rhs };
+}
+
+inline Vector3 cliqCity::graphicsMath::operator/(const Vector3& lhs, const float& rhs)
+{
+	float inv = (1.0f / rhs);
+	return{ lhs.x * inv, lhs.y * inv, lhs.z * inv };
+}
+
+inline Vector3 cliqCity::graphicsMath::operator+(const float& lhs, const Vector3& rhs)
+{
+	return rhs + lhs;
+}
+
+inline Vector3 cliqCity::graphicsMath::operator-(const float& lhs, const Vector3& rhs)
+{
+	return rhs - lhs;
+}
+
+inline Vector3 cliqCity::graphicsMath::operator*(const float& lhs, const Vector3& rhs)
+{
+	return rhs * lhs;
+}
+
+// Binary (Vector4)
+
+inline Vector4 cliqCity::graphicsMath::operator+(const Vector4& lhs, const Vector4& rhs)
+{
+	return { lhs.x + rhs.x, lhs.y + rhs.y, lhs.z + rhs.z, lhs.w + rhs.w };
+}
+
+inline Vector4 cliqCity::graphicsMath::operator-(const Vector4& lhs, const Vector4& rhs)
+{
+	return{ lhs.x - rhs.x, lhs.y - rhs.y, lhs.z - rhs.z, lhs.w - rhs.w };
+}
+
+inline Vector4 cliqCity::graphicsMath::operator*(const Vector4& lhs, const Vector4& rhs)
+{
+	return { lhs.x * rhs.x, lhs.y * rhs.y, lhs.z * rhs.z, lhs.w * rhs.w };
+}
+
+inline Vector4 cliqCity::graphicsMath::operator+(const Vector4& lhs, const float& rhs)
+{
+	return { lhs.x + rhs, lhs.y + rhs, lhs.z + rhs, lhs.w + rhs };
+}
+
+inline Vector4 cliqCity::graphicsMath::operator-(const Vector4& lhs, const float& rhs)
+{
+	return { lhs.x - rhs, lhs.y - rhs, lhs.z - rhs, lhs.w - rhs };
+}
+
+inline Vector4 cliqCity::graphicsMath::operator*(const Vector4& lhs, const float& rhs)
+{
+	return { lhs.x * rhs, lhs.y * rhs, lhs.z * rhs, lhs.w * rhs };
+}
+
+inline Vector4 cliqCity::graphicsMath::operator/(const Vector4& lhs, const float& rhs)
+{
+	float inv = (1.0f / rhs);
+	return { lhs.x * inv, lhs.y * inv, lhs.z * inv, lhs.w * inv };
+}
+
+inline Vector4 cliqCity::graphicsMath::operator+(const float& lhs, const Vector4& rhs)
+{
+	return rhs + lhs;
+}
+
+inline Vector4 cliqCity::graphicsMath::operator-(const float& lhs, const Vector4& rhs)
+{
+	return rhs - lhs;
+}
+
+inline Vector4 cliqCity::graphicsMath::operator*(const float& lhs, const Vector4& rhs)
+{
+	return rhs * lhs;
 }

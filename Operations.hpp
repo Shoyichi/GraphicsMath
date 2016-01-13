@@ -58,7 +58,7 @@ namespace cliqCity
 
 		inline Vector3 cross(const Vector3& lhs, const Vector3& rhs)
 		{
-			return{
+			return {
 				(lhs.y * rhs.z) - (lhs.z * rhs.y),
 				(lhs.z * rhs.x) - (lhs.x * rhs.z),
 				(lhs.x * rhs.y) - (lhs.y * rhs.x) };
@@ -98,61 +98,7 @@ namespace cliqCity
 		template<class Vector>
 		inline Vector lerp(const Vector& v0, const Vector& v1, const float& t)
 		{
-			return (1.0f - t) * v0 + (v1 * t)
-		}
-
-		template<class Vector>
-		inline Vector operator+(const Vector& lhs, const Vector& rhs)
-		{
-			return Vector(lhs) += rhs;
-		}
-
-		template<class Vector>
-		inline Vector operator-(const Vector& lhs, const Vector& rhs)
-		{
-			return Vector(lhs) -= rhs;
-		}
-
-		template<class Vector>
-		inline Vector operator+(const Vector& lhs, const float& rhs)
-		{
-			return Vector(lhs) += rhs;
-		}
-
-		template<class Vector>
-		inline Vector2 operator-(const Vector2& lhs, const float& rhs)
-		{
-			return Vector(lhs) -= rhs;
-		}
-
-		template<class Vector>
-		inline Vector operator*(const Vector& lhs, const float& rhs)
-		{
-			return Vector(lhs) *= rhs;
-		}
-
-		template<class Vector>
-		inline Vector operator/(const Vector& lhs, const float& rhs)
-		{
-			return Vector(lhs) *= (1.0f / rhs);
-		}
-
-		template<class Vector>
-		inline Vector operator+(const float& lhs, const Vector& rhs)
-		{
-			return Vector(rhs) += lhs;
-		}
-
-		template<class Vector>
-		inline Vector operator-(const float& lhs, const Vector& rhs)
-		{
-			return Vector(rhs) -= lhs;
-		}
-
-		template<class Vector>
-		inline Vector operator*(const float& lhs, const Vector& rhs)
-		{
-			return Vector(rhs) *= lhs;
+			return (1.0f - t) * v0 + (v1 * t);
 		}
 	}
 }

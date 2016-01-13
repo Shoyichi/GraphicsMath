@@ -729,7 +729,25 @@ inline Matrix4::operator Matrix3()
 
 // Matrix2 Binary Operators
 
-Matrix2 cliqCity::graphicsMath::operator*(const Matrix2& lhs, const Matrix2& rhs)
+inline Matrix2 cliqCity::graphicsMath::operator+(const Matrix2& lhs, const Matrix2& rhs)
+{
+	return
+	{
+		lhs.pRows[0].pCols[0] + rhs.pRows[0].pCols[0], lhs.pRows[0].pCols[1] + rhs.pRows[0].pCols[1],
+		lhs.pRows[1].pCols[0] + rhs.pRows[1].pCols[0], lhs.pRows[1].pCols[1] + rhs.pRows[1].pCols[1]
+	};
+}
+
+inline Matrix2 cliqCity::graphicsMath::operator-(const Matrix2& lhs, const Matrix2& rhs)
+{
+	return
+	{
+		lhs.pRows[0].pCols[0] - rhs.pRows[0].pCols[0], lhs.pRows[0].pCols[1] - rhs.pRows[0].pCols[1], 
+		lhs.pRows[1].pCols[0] - rhs.pRows[1].pCols[0], lhs.pRows[1].pCols[1] - rhs.pRows[1].pCols[1]
+	};
+}
+
+inline Matrix2 cliqCity::graphicsMath::operator*(const Matrix2& lhs, const Matrix2& rhs)
 {
 	return Matrix2(
 		lhs.pRows[0].pCols[0] * rhs.pRows[0].pCols[0] + lhs.pRows[0].pCols[1] * rhs.pRows[1].pCols[0], lhs.pRows[0].pCols[0] * rhs.pRows[0].pCols[1] + lhs.pRows[0].pCols[1] * rhs.pRows[1].pCols[1],
@@ -745,9 +763,43 @@ Vector2 cliqCity::graphicsMath::operator*(const Vector2& lhs, const Matrix2& rhs
 		);
 }
 
+inline Matrix2 cliqCity::graphicsMath::operator*(const float& lhs, const Matrix2& rhs)
+{
+	return rhs * lhs;
+}
+
+inline Matrix2 cliqCity::graphicsMath::operator*(const Matrix2& lhs, const float& rhs)
+{
+	return
+	{
+		lhs.pRows[0].pCols[0] * rhs, lhs.pRows[0].pCols[1] * rhs, 
+		lhs.pRows[1].pCols[0] * rhs, lhs.pRows[1].pCols[1] * rhs
+	};
+}
+
 // Matrix3 Binary Operators
 
-Matrix3 cliqCity::graphicsMath::operator*(const Matrix3& lhs, const Matrix3& rhs)
+inline Matrix3 cliqCity::graphicsMath::operator+(const Matrix3& lhs, const Matrix3& rhs)
+{
+	return
+	{
+		lhs.pRows[0].pCols[0] + rhs.pRows[0].pCols[0], lhs.pRows[0].pCols[1] + rhs.pRows[0].pCols[1], lhs.pRows[0].pCols[2] + rhs.pRows[0].pCols[2],
+		lhs.pRows[1].pCols[0] + rhs.pRows[1].pCols[0], lhs.pRows[1].pCols[1] + rhs.pRows[1].pCols[1], lhs.pRows[1].pCols[2] + rhs.pRows[1].pCols[2],
+		lhs.pRows[2].pCols[0] + rhs.pRows[2].pCols[0], lhs.pRows[2].pCols[1] + rhs.pRows[2].pCols[1], lhs.pRows[2].pCols[2] + rhs.pRows[2].pCols[2]
+	};
+}
+
+inline Matrix3 cliqCity::graphicsMath::operator-(const Matrix3& lhs, const Matrix3& rhs)
+{
+	return
+	{
+		lhs.pRows[0].pCols[0] - rhs.pRows[0].pCols[0], lhs.pRows[0].pCols[1] - rhs.pRows[0].pCols[1], lhs.pRows[0].pCols[2] - rhs.pRows[0].pCols[2],
+		lhs.pRows[1].pCols[0] - rhs.pRows[1].pCols[0], lhs.pRows[1].pCols[1] - rhs.pRows[1].pCols[1], lhs.pRows[1].pCols[2] - rhs.pRows[1].pCols[2], 
+		lhs.pRows[2].pCols[0] - rhs.pRows[2].pCols[0], lhs.pRows[2].pCols[1] - rhs.pRows[2].pCols[1], lhs.pRows[2].pCols[2] - rhs.pRows[2].pCols[2]
+	};
+}
+
+inline Matrix3 cliqCity::graphicsMath::operator*(const Matrix3& lhs, const Matrix3& rhs)
 {
 	Matrix3 m = rhs.transpose();
 
@@ -758,7 +810,7 @@ Matrix3 cliqCity::graphicsMath::operator*(const Matrix3& lhs, const Matrix3& rhs
 		);
 }
 
-Vector3 cliqCity::graphicsMath::operator*(const Vector3& lhs, const Matrix3& rhs)
+inline Vector3 cliqCity::graphicsMath::operator*(const Vector3& lhs, const Matrix3& rhs)
 {
 	return Vector3(
 		(lhs.pCols[0] * rhs.pRows[0].pCols[0]) + (lhs.pCols[1] * rhs.pRows[1].pCols[0]) + (lhs.pCols[2] * rhs.pRows[2].pCols[0]),
@@ -767,24 +819,81 @@ Vector3 cliqCity::graphicsMath::operator*(const Vector3& lhs, const Matrix3& rhs
 		);
 }
 
-Matrix4 cliqCity::graphicsMath::operator*(const Matrix4& lhs, const Matrix4& rhs)
+inline Matrix3 cliqCity::graphicsMath::operator*(const float& lhs, const Matrix3& rhs)
+{
+	return rhs * lhs;
+}
+
+inline Matrix3 cliqCity::graphicsMath::operator*(const Matrix3& lhs, const float& rhs)
+{
+	return
+	{
+		lhs.pRows[0].pCols[0] * rhs, lhs.pRows[0].pCols[1] * rhs, lhs.pRows[0].pCols[2] * rhs, 
+		lhs.pRows[1].pCols[0] * rhs, lhs.pRows[1].pCols[1] * rhs, lhs.pRows[1].pCols[2] * rhs, 
+		lhs.pRows[2].pCols[0] * rhs, lhs.pRows[2].pCols[1] * rhs, lhs.pRows[2].pCols[2] * rhs
+	};
+}
+
+// Matrix4 Binary Operators
+
+inline Matrix4 cliqCity::graphicsMath::operator+(const Matrix4& lhs, const Matrix4& rhs)
+{
+	return 
+	{
+		lhs.pRows[0].pCols[0] + rhs.pRows[0].pCols[0], lhs.pRows[0].pCols[1] + rhs.pRows[0].pCols[1], lhs.pRows[0].pCols[2] + rhs.pRows[0].pCols[2], lhs.pRows[0].pCols[3] + rhs.pRows[0].pCols[3],
+		lhs.pRows[1].pCols[0] + rhs.pRows[1].pCols[0], lhs.pRows[1].pCols[1] + rhs.pRows[1].pCols[1], lhs.pRows[1].pCols[2] + rhs.pRows[1].pCols[2], lhs.pRows[1].pCols[3] + rhs.pRows[1].pCols[3],
+		lhs.pRows[2].pCols[0] + rhs.pRows[2].pCols[0], lhs.pRows[2].pCols[1] + rhs.pRows[2].pCols[1], lhs.pRows[2].pCols[2] + rhs.pRows[2].pCols[2], lhs.pRows[2].pCols[3] + rhs.pRows[2].pCols[3],
+		lhs.pRows[3].pCols[0] + rhs.pRows[3].pCols[0], lhs.pRows[3].pCols[1] + rhs.pRows[3].pCols[1], lhs.pRows[3].pCols[2] + rhs.pRows[3].pCols[2], lhs.pRows[3].pCols[3] + rhs.pRows[3].pCols[3]
+	};
+}
+
+inline Matrix4 cliqCity::graphicsMath::operator-(const Matrix4& lhs, const Matrix4& rhs)
+{
+	return
+	{
+		lhs.pRows[0].pCols[0] - rhs.pRows[0].pCols[0], lhs.pRows[0].pCols[1] - rhs.pRows[0].pCols[1], lhs.pRows[0].pCols[2] - rhs.pRows[0].pCols[2], lhs.pRows[0].pCols[3] - rhs.pRows[0].pCols[3],
+		lhs.pRows[1].pCols[0] - rhs.pRows[1].pCols[0], lhs.pRows[1].pCols[1] - rhs.pRows[1].pCols[1], lhs.pRows[1].pCols[2] - rhs.pRows[1].pCols[2], lhs.pRows[1].pCols[3] - rhs.pRows[1].pCols[3],
+		lhs.pRows[2].pCols[0] - rhs.pRows[2].pCols[0], lhs.pRows[2].pCols[1] - rhs.pRows[2].pCols[1], lhs.pRows[2].pCols[2] - rhs.pRows[2].pCols[2], lhs.pRows[2].pCols[3] - rhs.pRows[2].pCols[3],
+		lhs.pRows[3].pCols[0] - rhs.pRows[3].pCols[0], lhs.pRows[3].pCols[1] - rhs.pRows[3].pCols[1], lhs.pRows[3].pCols[2] - rhs.pRows[3].pCols[2], lhs.pRows[3].pCols[3] - rhs.pRows[3].pCols[3]
+	};
+}
+
+inline Matrix4 cliqCity::graphicsMath::operator*(const Matrix4& lhs, const Matrix4& rhs)
 {
 	Matrix4 m = rhs.transpose();
 
-	return Matrix4(
+	return 
+	{
 		dot(lhs.pRows[0], m.pRows[0]), dot(lhs.pRows[0], m.pRows[1]), dot(lhs.pRows[0], m.pRows[2]), dot(lhs.pRows[0], m.pRows[3]),
 		dot(lhs.pRows[1], m.pRows[0]), dot(lhs.pRows[1], m.pRows[1]), dot(lhs.pRows[1], m.pRows[2]), dot(lhs.pRows[1], m.pRows[3]),
 		dot(lhs.pRows[2], m.pRows[0]), dot(lhs.pRows[2], m.pRows[1]), dot(lhs.pRows[2], m.pRows[2]), dot(lhs.pRows[2], m.pRows[3]),
 		dot(lhs.pRows[3], m.pRows[0]), dot(lhs.pRows[3], m.pRows[1]), dot(lhs.pRows[3], m.pRows[2]), dot(lhs.pRows[3], m.pRows[3])
-		);
+	};
 }
 
-Vector4 cliqCity::graphicsMath::operator*(const Vector4& lhs, const Matrix4& rhs)
+inline Vector4 cliqCity::graphicsMath::operator*(const Vector4& lhs, const Matrix4& rhs)
 {
-	return Vector4(
+	return
+	{
 		(lhs.pCols[0] * rhs.pRows[0].pCols[0]) + (lhs.pCols[1] * rhs.pRows[1].pCols[0]) + (lhs.pCols[2] * rhs.pRows[2].pCols[0]) + (lhs.pCols[3] * rhs.pRows[3].pCols[0]),
 		(lhs.pCols[0] * rhs.pRows[0].pCols[1]) + (lhs.pCols[1] * rhs.pRows[1].pCols[1]) + (lhs.pCols[2] * rhs.pRows[2].pCols[1]) + (lhs.pCols[3] * rhs.pRows[3].pCols[1]),
 		(lhs.pCols[0] * rhs.pRows[0].pCols[2]) + (lhs.pCols[1] * rhs.pRows[1].pCols[2]) + (lhs.pCols[2] * rhs.pRows[2].pCols[2]) + (lhs.pCols[3] * rhs.pRows[3].pCols[2]),
 		(lhs.pCols[0] * rhs.pRows[0].pCols[3]) + (lhs.pCols[1] * rhs.pRows[1].pCols[3]) + (lhs.pCols[2] * rhs.pRows[2].pCols[3]) + (lhs.pCols[3] * rhs.pRows[3].pCols[3])
-		);
+	};
+}
+
+inline Matrix4 cliqCity::graphicsMath::operator*(const float& lhs, const Matrix4& rhs)
+{
+	return rhs * lhs;
+}
+
+inline Matrix4 cliqCity::graphicsMath::operator*(const Matrix4& lhs, const float& rhs)
+{
+	return
+	{
+		lhs.pRows[0].pCols[0] * rhs, lhs.pRows[0].pCols[1] * rhs, lhs.pRows[0].pCols[2] * rhs, lhs.pRows[0].pCols[3] * rhs,
+		lhs.pRows[1].pCols[0] * rhs, lhs.pRows[1].pCols[1] * rhs, lhs.pRows[1].pCols[2] * rhs, lhs.pRows[1].pCols[3] * rhs,
+		lhs.pRows[2].pCols[0] * rhs, lhs.pRows[2].pCols[1] * rhs, lhs.pRows[2].pCols[2] * rhs, lhs.pRows[2].pCols[3] * rhs,
+		lhs.pRows[3].pCols[0] * rhs, lhs.pRows[3].pCols[1] * rhs, lhs.pRows[3].pCols[2] * rhs, lhs.pRows[3].pCols[3] * rhs
+	};
 }

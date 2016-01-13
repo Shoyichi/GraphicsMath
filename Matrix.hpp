@@ -176,17 +176,30 @@ namespace cliqCity
 
 		// Binary (Matrix2)
 
+		CGM_DLL Matrix2 operator+(const Matrix2& lhs, const Matrix2& rhs);
+		CGM_DLL Matrix2 operator-(const Matrix2& lhs, const Matrix2& rhs);
 		CGM_DLL Matrix2 operator*(const Matrix2& lhs, const Matrix2& rhs);
+		CGM_DLL Matrix2 operator*(const Matrix2& lhs, const float& rhs);
+		CGM_DLL Matrix2 operator*(const float& lhs, const Matrix2& rhs);
 		CGM_DLL Vector2 operator*(const Vector2& lhs, const Matrix2& rhs);
 
 		// Binary (Matrix3)
 
+		CGM_DLL Matrix3 operator+(const Matrix3& lhs, const Matrix3& rhs);
+		CGM_DLL Matrix3 operator-(const Matrix3& lhs, const Matrix3& rhs);
 		CGM_DLL Matrix3 operator*(const Matrix3& lhs, const Matrix3& rhs);
+		CGM_DLL Matrix3 operator*(const Matrix3& lhs, const float& rhs);
+		CGM_DLL Matrix3 operator*(const float& lhs, const Matrix3& rhs);
 		CGM_DLL Vector3 operator*(const Vector3& lhs, const Matrix3& rhs);
 
 		// Binary (Matrix4)
 
+		CGM_DLL Matrix4 operator+(const Matrix4& lhs, const Matrix4& rhs);
+		CGM_DLL Matrix4 operator-(const Matrix4& lhs, const Matrix4& rhs);
+		
 		CGM_DLL Matrix4 operator*(const Matrix4& lhs, const Matrix4& rhs);
 		CGM_DLL Vector4 operator*(const Vector4& lhs, const Matrix4& rhs);
+		CGM_DLL Matrix4 operator*(const Matrix4& lhs, const float& rhs);
+		CGM_DLL Matrix4 operator*(const float& lhs, const Matrix4& rhs);
 	}
 }

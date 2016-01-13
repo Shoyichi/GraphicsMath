@@ -28,7 +28,6 @@ namespace cliqCity
 				struct
 				{
 					Vector3 v;
-					float	w;
 				};
 
 				float pCols[4];
@@ -59,8 +58,13 @@ namespace cliqCity
 
 		CGM_DLL Quaternion slerp(Quaternion q0, Quaternion q1, const float& t);
 
+		CGM_DLL Quaternion operator+(const Quaternion& lhs, const Quaternion& rhs);
 		CGM_DLL Quaternion operator*(const Quaternion& lhs, const Quaternion& rhs);
+
 		CGM_DLL Vector3 operator*(const Vector3& lhs, const Quaternion& rhs);
 		CGM_DLL Vector3 operator*(const Quaternion& lhs, const Vector3& rhs);
+
+		CGM_DLL Quaternion operator*(const Quaternion& lhs, const float& rhs);
+		CGM_DLL Quaternion operator/(const Quaternion& lhs, const float& rhs);
 	}
 }

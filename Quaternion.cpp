@@ -171,9 +171,20 @@ Quaternion cliqCity::graphicsMath::slerp(Quaternion q0, Quaternion q1, const flo
 	return q0 + q1;
 }
 
+inline Quaternion cliqCity::graphicsMath::operator+(const Quaternion& lhs, const Quaternion& rhs)
+{
+	return { lhs.x + rhs.x, lhs.y + rhs.y, lhs.z + rhs.z, lhs.w + rhs.w };
+}
+
 inline Quaternion cliqCity::graphicsMath::operator*(const Quaternion& lhs, const Quaternion& rhs)
 {
-	return Quaternion(lhs) *= rhs;
+	return
+	{
+		(lhs.w * rhs.x) + (lhs.x * rhs.w) + ((lhs.y * rhs.z) - (lhs.z * rhs.y)),
+		(lhs.w * rhs.y) + (lhs.y * rhs.w) + ((lhs.z * rhs.x) - (lhs.x * rhs.z)),
+		(lhs.w * rhs.z) + (lhs.z * rhs.w) + ((lhs.x * rhs.y) - (lhs.y * rhs.x)),
+		lhs.w * rhs.w - (lhs.x * rhs.x + lhs.y * rhs.y + lhs.z * rhs.z)
+	};
 }
 
 inline Vector3 cliqCity::graphicsMath::operator*(const Vector3& lhs, const Quaternion& rhs)
@@ -186,4 +197,15 @@ inline Vector3 cliqCity::graphicsMath::operator*(const Quaternion& lhs, const Ve
 	Vector3 VxP = cross(lhs.v, rhs);
 	Vector3 VxPxV = cross(lhs.v, VxP);
 	return rhs + ((VxP * lhs.w) + VxPxV) * 2.0f;
+}
+
+inline Quaternion cliqCity::graphicsMath::operator*(const Quaternion& lhs, const float& rhs)
+{
+	return { lhs.x * rhs, lhs.y * rhs, lhs.z * rhs, lhs.w * rhs };
+}
+
+inline Quaternion cliqCity::graphicsMath::operator/(const Quaternion& lhs, const float& rhs)
+{
+	float inv = (1.0f / rhs);
+	return{ lhs.x * inv, lhs.y * inv, lhs.z * inv, lhs.w * inv };
 }
