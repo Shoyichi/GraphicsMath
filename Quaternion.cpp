@@ -178,14 +178,30 @@ inline Quaternion cliqCity::graphicsMath::operator+(const Quaternion& lhs, const
 
 inline Quaternion cliqCity::graphicsMath::operator*(const Quaternion& lhs, const Quaternion& rhs)
 {
-	return
+	return Quaternion(lhs) *= rhs;
+	/*return
 	{
 		(lhs.w * rhs.x) + (lhs.x * rhs.w) + ((lhs.y * rhs.z) - (lhs.z * rhs.y)),
 		(lhs.w * rhs.y) + (lhs.y * rhs.w) + ((lhs.z * rhs.x) - (lhs.x * rhs.z)),
 		(lhs.w * rhs.z) + (lhs.z * rhs.w) + ((lhs.x * rhs.y) - (lhs.y * rhs.x)),
 		lhs.w * rhs.w - (lhs.x * rhs.x + lhs.y * rhs.y + lhs.z * rhs.z)
-	};
+	};*/
 }
+
+//float cliqCity::graphicsMath::magnitude(const Quaternion& quaternion)
+//{
+//	return sqrtf(quaternion.w * quaternion.w + quaternion.v.x * quaternion.v.x + quaternion.v.y * quaternion.v.y + quaternion.v.z * quaternion.v.z);
+//}
+//
+//Quaternion cliqCity::graphicsMath::normalize(const Quaternion& quaternion)
+//{
+//	return quaternion / magnitude(quaternion);
+//}
+//
+//float cliqCity::graphicsMath::dot(const Quaternion& lhs, const Quaternion& rhs)
+//{
+//	return (lhs.w * rhs.w) + dot(lhs.v, rhs.v);
+//}
 
 inline Vector3 cliqCity::graphicsMath::operator*(const Vector3& lhs, const Quaternion& rhs)
 {

@@ -4,7 +4,6 @@
 //	Defines 2D, 3D, and 4D vectors and behavior
 
 #pragma once
-//#include "simd\SIMD\simd.h"
 
 #ifdef _WINDLL
 #define CGM_DLL __declspec(dllexport)
@@ -65,13 +64,13 @@ namespace cliqCity
 				float pCols[3];
 			};
 
-			Vector3(float x, float y, float z) : x(x), y(y), z(z) {};
-			Vector3(float v) : x(v), y(v), z(v) {};
-			Vector3(const Vector3& vector3) : Vector3(vector3.x, vector3.y, vector3.z) {};
-			Vector3() : Vector3(0.0f) {};
+			inline Vector3(float x, float y, float z) : x(x), y(y), z(z) {};
+			inline Vector3(float v) : x(v), y(v), z(v) {};
+			inline Vector3(const Vector3& vector3) : Vector3(vector3.x, vector3.y, vector3.z) {};
+			inline Vector3() : Vector3(0.0f) {};
 
-			Vector3(const Vector2& vector2, float z) : Vector3(vector2.x, vector2.y, z) {};
-			Vector3(const Vector2& vector2) : Vector3(vector2, 0.0f) {};
+			inline Vector3(const Vector2& vector2, float z) : Vector3(vector2.x, vector2.y, z) {};
+			inline Vector3(const Vector2& vector2) : Vector3(vector2, 0.0f) {};
 
 			Vector3& operator+=(const Vector3& rhs);
 			Vector3& operator-=(const Vector3& rhs);
@@ -108,18 +107,16 @@ namespace cliqCity
 				float pCols[4];
 			};
 
-			Vector4(float x, float y, float z, float w) : x(x), y(y), z(z), w(w) {
-			
-			};
-			Vector4(float v) : Vector4(v, v, v, v) {};
-			Vector4(const Vector4& vector4) : Vector4(vector4.x, vector4.y, vector4.z, vector4.w) {};
-			Vector4() : Vector4(0.0f) {};
+			inline Vector4(float x, float y, float z, float w) : x(x), y(y), z(z), w(w) {};
+			inline Vector4(float v) : Vector4(v, v, v, v) {};
+			inline Vector4(const Vector4& vector4) : Vector4(vector4.x, vector4.y, vector4.z, vector4.w) {};
+			inline Vector4() : Vector4(0.0f) {};
 
-			Vector4(const Vector3& vector3, float w) : Vector4(vector3.x, vector3.y, vector3.z, w) {};
-			Vector4(const Vector3& vector3) : Vector4(vector3, 0.0f) {};
+			inline Vector4(const Vector3& vector3, float w) : Vector4(vector3.x, vector3.y, vector3.z, w) {};
+			inline Vector4(const Vector3& vector3) : Vector4(vector3, 0.0f) {};
 
-			Vector4(const Vector2& vector2, float z, float w) : Vector4(vector2.x, vector2.y, z, w) {};
-			Vector4(const Vector2& vector2) : Vector4(vector2.x, vector2.y, 0.0f, 0.0f) {};
+			inline Vector4(const Vector2& vector2, float z, float w) : Vector4(vector2.x, vector2.y, z, w) {};
+			inline Vector4(const Vector2& vector2) : Vector4(vector2.x, vector2.y, 0.0f, 0.0f) {};
 
 			//Vector4(const float128_t& v) : v(v) {};
 
@@ -142,11 +139,6 @@ namespace cliqCity
 			float& operator[](const unsigned int& index);
 
 			// Typecast
-
-		/*	inline operator float128_arg_t() const
-			{
-				return v;
-			}*/
 
 			inline operator Vector3()
 			{

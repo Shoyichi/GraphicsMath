@@ -28,6 +28,7 @@ namespace cliqCity
 				struct
 				{
 					Vector3 v;
+					float padding;
 				};
 
 				float pCols[4];

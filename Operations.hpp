@@ -2,6 +2,7 @@
 #define _USE_MATH_DEFINES
 #include <cmath>
 #include "Vector.hpp"
+#include "SIMDVector.hpp"
 
 namespace cliqCity
 {
@@ -100,5 +101,18 @@ namespace cliqCity
 		{
 			return (1.0f - t) * v0 + (v1 * t);
 		}
+
+		template<class Vector>
+		inline void LoadVector(Vector* source, SIMDVector* dest)
+		{
+			*dest = simd::Load_Aligned(source->pCols);
+		}
+
+		template<class Vector>
+		inline void StoreVector(SIMDVector* source, Vector* dest)
+		{
+			simd::Store(dest->pCols, source->m);
+		}
+
 	}
 }
