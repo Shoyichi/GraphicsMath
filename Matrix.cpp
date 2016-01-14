@@ -801,13 +801,20 @@ inline Matrix3 cliqCity::graphicsMath::operator-(const Matrix3& lhs, const Matri
 
 inline Matrix3 cliqCity::graphicsMath::operator*(const Matrix3& lhs, const Matrix3& rhs)
 {
-	Matrix3 m = rhs.transpose();
+	return
+	{
+		/* 00 */ (lhs.pRows[0].pCols[0] * rhs.pRows[0].pCols[0]) + (lhs.pRows[0].pCols[1] * rhs.pRows[1].pCols[0]) + (lhs.pRows[0].pCols[2] * rhs.pRows[2].pCols[0]) + (lhs.pRows[0].pCols[3] * rhs.pRows[3].pCols[0]), /*01*/ (lhs.pRows[0].pCols[0] * rhs.pRows[0].pCols[1]) + (lhs.pRows[0].pCols[1] * rhs.pRows[1].pCols[1]) + (lhs.pRows[0].pCols[2] * rhs.pRows[2].pCols[1]) + (lhs.pRows[0].pCols[3] * rhs.pRows[3].pCols[1]), /*02*/ (lhs.pRows[0].pCols[0] * rhs.pRows[0].pCols[2]) + (lhs.pRows[0].pCols[1] * rhs.pRows[1].pCols[2]) + (lhs.pRows[0].pCols[2] * rhs.pRows[2].pCols[2]) + (lhs.pRows[0].pCols[3] * rhs.pRows[3].pCols[2]),
+		/* 10 */ (lhs.pRows[1].pCols[0] * rhs.pRows[0].pCols[0]) + (lhs.pRows[1].pCols[1] * rhs.pRows[1].pCols[0]) + (lhs.pRows[1].pCols[2] * rhs.pRows[2].pCols[0]) + (lhs.pRows[1].pCols[3] * rhs.pRows[3].pCols[0]), /*11*/ (lhs.pRows[1].pCols[0] * rhs.pRows[0].pCols[1]) + (lhs.pRows[1].pCols[1] * rhs.pRows[1].pCols[1]) + (lhs.pRows[1].pCols[2] * rhs.pRows[2].pCols[1]) + (lhs.pRows[1].pCols[3] * rhs.pRows[3].pCols[1]), /*12*/ (lhs.pRows[1].pCols[0] * rhs.pRows[0].pCols[2]) + (lhs.pRows[1].pCols[1] * rhs.pRows[1].pCols[2]) + (lhs.pRows[1].pCols[2] * rhs.pRows[2].pCols[2]) + (lhs.pRows[1].pCols[3] * rhs.pRows[3].pCols[2]), 
+		/* 20 */ (lhs.pRows[2].pCols[0] * rhs.pRows[0].pCols[0]) + (lhs.pRows[2].pCols[1] * rhs.pRows[1].pCols[0]) + (lhs.pRows[2].pCols[2] * rhs.pRows[2].pCols[0]) + (lhs.pRows[2].pCols[3] * rhs.pRows[3].pCols[0]), /*21*/ (lhs.pRows[2].pCols[0] * rhs.pRows[0].pCols[1]) + (lhs.pRows[2].pCols[1] * rhs.pRows[1].pCols[1]) + (lhs.pRows[2].pCols[2] * rhs.pRows[2].pCols[1]) + (lhs.pRows[2].pCols[3] * rhs.pRows[3].pCols[1]), /*22*/ (lhs.pRows[2].pCols[0] * rhs.pRows[0].pCols[2]) + (lhs.pRows[2].pCols[1] * rhs.pRows[1].pCols[2]) + (lhs.pRows[2].pCols[2] * rhs.pRows[2].pCols[2]) + (lhs.pRows[2].pCols[3] * rhs.pRows[3].pCols[2])
+	};
 
-	return Matrix3(
-		dot(lhs.pRows[0], m.pRows[0]), dot(lhs.pRows[0], m.pRows[1]), dot(lhs.pRows[0], m.pRows[2]),
-		dot(lhs.pRows[1], m.pRows[0]), dot(lhs.pRows[1], m.pRows[1]), dot(lhs.pRows[1], m.pRows[2]), 
-		dot(lhs.pRows[2], m.pRows[0]), dot(lhs.pRows[2], m.pRows[1]), dot(lhs.pRows[2], m.pRows[2])
-		);
+	//Matrix3 m = rhs.transpose();
+
+	//return Matrix3(
+	//	dot(lhs.pRows[0], m.pRows[0]), dot(lhs.pRows[0], m.pRows[1]), dot(lhs.pRows[0], m.pRows[2]),
+	//	dot(lhs.pRows[1], m.pRows[0]), dot(lhs.pRows[1], m.pRows[1]), dot(lhs.pRows[1], m.pRows[2]), 
+	//	dot(lhs.pRows[2], m.pRows[0]), dot(lhs.pRows[2], m.pRows[1]), dot(lhs.pRows[2], m.pRows[2])
+	//	);
 }
 
 inline Vector3 cliqCity::graphicsMath::operator*(const Vector3& lhs, const Matrix3& rhs)
@@ -860,15 +867,31 @@ inline Matrix4 cliqCity::graphicsMath::operator-(const Matrix4& lhs, const Matri
 
 inline Matrix4 cliqCity::graphicsMath::operator*(const Matrix4& lhs, const Matrix4& rhs)
 {
-	Matrix4 m = rhs.transpose();
+	/*
+	(lhs00 * rhs00) + (lhs01 * rhs10) + (lhs02 * rhs20) + (lhs03 * rhs30),	(lhs00 * rhs01) + (lhs01 * rhs11) + (lhs02 * rhs21) + (lhs03 * rhs31),	(lhs00 * rhs02) + (lhs01 * rhs12) + (lhs02 * rhs22) + (lhs03 * rhs32),	(lhs00 * rhs03) + (lhs01 * rhs13) + (lhs02 * rhs23) + (lhs03 * rhs33),
+	(lhs10 * rhs00) + (lhs11 * rhs10) + (lhs12 * rhs20) + (lhs13 * rhs30),	(lhs10 * rhs01) + (lhs11 * rhs11) + (lhs12 * rhs21) + (lhs13 * rhs31),	(lhs10 * rhs02) + (lhs11 * rhs12) + (lhs12 * rhs22) + (lhs13 * rhs32),	(lhs10 * rhs03) + (lhs11 * rhs13) + (lhs12 * rhs23) + (lhs13 * rhs33),
+	(lhs20 * rhs00) + (lhs21 * rhs10) + (lhs22 * rhs20) + (lhs23 * rhs30),	(lhs20 * rhs01) + (lhs21 * rhs11) + (lhs22 * rhs21) + (lhs23 * rhs31),	(lhs20 * rhs02) + (lhs21 * rhs12) + (lhs22 * rhs22) + (lhs23 * rhs32),	(lhs20 * rhs03) + (lhs21 * rhs13) + (lhs22 * rhs23) + (lhs23 * rhs33),
+	(lhs30 * rhs00) + (lhs31 * rhs10) + (lhs32 * rhs20) + (lhs33 * rhs30),	(lhs30 * rhs01) + (lhs31 * rhs11) + (lhs32 * rhs21) + (lhs33 * rhs31),	(lhs30 * rhs02) + (lhs31 * rhs12) + (lhs32 * rhs22) + (lhs33 * rhs32),	(lhs30 * rhs03) + (lhs31 * rhs13) + (lhs32 * rhs23) + (lhs33 * rhs33)
 
-	return 
+	*/
+
+	return
 	{
-		dot(lhs.pRows[0], m.pRows[0]), dot(lhs.pRows[0], m.pRows[1]), dot(lhs.pRows[0], m.pRows[2]), dot(lhs.pRows[0], m.pRows[3]),
-		dot(lhs.pRows[1], m.pRows[0]), dot(lhs.pRows[1], m.pRows[1]), dot(lhs.pRows[1], m.pRows[2]), dot(lhs.pRows[1], m.pRows[3]),
-		dot(lhs.pRows[2], m.pRows[0]), dot(lhs.pRows[2], m.pRows[1]), dot(lhs.pRows[2], m.pRows[2]), dot(lhs.pRows[2], m.pRows[3]),
-		dot(lhs.pRows[3], m.pRows[0]), dot(lhs.pRows[3], m.pRows[1]), dot(lhs.pRows[3], m.pRows[2]), dot(lhs.pRows[3], m.pRows[3])
+		/* 00 */ (lhs.pRows[0].pCols[0] * rhs.pRows[0].pCols[0]) + (lhs.pRows[0].pCols[1] * rhs.pRows[1].pCols[0]) + (lhs.pRows[0].pCols[2] * rhs.pRows[2].pCols[0]) + (lhs.pRows[0].pCols[3] * rhs.pRows[3].pCols[0]), /*01*/ (lhs.pRows[0].pCols[0] * rhs.pRows[0].pCols[1]) + (lhs.pRows[0].pCols[1] * rhs.pRows[1].pCols[1]) + (lhs.pRows[0].pCols[2] * rhs.pRows[2].pCols[1]) + (lhs.pRows[0].pCols[3] * rhs.pRows[3].pCols[1]), /*02*/ (lhs.pRows[0].pCols[0] * rhs.pRows[0].pCols[2]) + (lhs.pRows[0].pCols[1] * rhs.pRows[1].pCols[2]) + (lhs.pRows[0].pCols[2] * rhs.pRows[2].pCols[2]) + (lhs.pRows[0].pCols[3] * rhs.pRows[3].pCols[2]), /*03*/ (lhs.pRows[0].pCols[0] * rhs.pRows[0].pCols[3]) + (lhs.pRows[0].pCols[1] * rhs.pRows[1].pCols[3]) + (lhs.pRows[0].pCols[2] * rhs.pRows[2].pCols[3]) + (lhs.pRows[0].pCols[3] * rhs.pRows[3].pCols[3]),
+		/* 10 */ (lhs.pRows[1].pCols[0] * rhs.pRows[0].pCols[0]) + (lhs.pRows[1].pCols[1] * rhs.pRows[1].pCols[0]) + (lhs.pRows[1].pCols[2] * rhs.pRows[2].pCols[0]) + (lhs.pRows[1].pCols[3] * rhs.pRows[3].pCols[0]), /*11*/ (lhs.pRows[1].pCols[0] * rhs.pRows[0].pCols[1]) + (lhs.pRows[1].pCols[1] * rhs.pRows[1].pCols[1]) + (lhs.pRows[1].pCols[2] * rhs.pRows[2].pCols[1]) + (lhs.pRows[1].pCols[3] * rhs.pRows[3].pCols[1]), /*12*/ (lhs.pRows[1].pCols[0] * rhs.pRows[0].pCols[2]) + (lhs.pRows[1].pCols[1] * rhs.pRows[1].pCols[2]) + (lhs.pRows[1].pCols[2] * rhs.pRows[2].pCols[2]) + (lhs.pRows[1].pCols[3] * rhs.pRows[3].pCols[2]), /*13*/ (lhs.pRows[1].pCols[0] * rhs.pRows[0].pCols[3]) + (lhs.pRows[1].pCols[1] * rhs.pRows[1].pCols[3]) + (lhs.pRows[1].pCols[2] * rhs.pRows[2].pCols[3]) + (lhs.pRows[1].pCols[3] * rhs.pRows[3].pCols[3]),
+		/* 20 */ (lhs.pRows[2].pCols[0] * rhs.pRows[0].pCols[0]) + (lhs.pRows[2].pCols[1] * rhs.pRows[1].pCols[0]) + (lhs.pRows[2].pCols[2] * rhs.pRows[2].pCols[0]) + (lhs.pRows[2].pCols[3] * rhs.pRows[3].pCols[0]), /*21*/ (lhs.pRows[2].pCols[0] * rhs.pRows[0].pCols[1]) + (lhs.pRows[2].pCols[1] * rhs.pRows[1].pCols[1]) + (lhs.pRows[2].pCols[2] * rhs.pRows[2].pCols[1]) + (lhs.pRows[2].pCols[3] * rhs.pRows[3].pCols[1]), /*22*/ (lhs.pRows[2].pCols[0] * rhs.pRows[0].pCols[2]) + (lhs.pRows[2].pCols[1] * rhs.pRows[1].pCols[2]) + (lhs.pRows[2].pCols[2] * rhs.pRows[2].pCols[2]) + (lhs.pRows[2].pCols[3] * rhs.pRows[3].pCols[2]), /*23*/ (lhs.pRows[2].pCols[0] * rhs.pRows[0].pCols[3]) + (lhs.pRows[2].pCols[1] * rhs.pRows[1].pCols[3]) + (lhs.pRows[2].pCols[2] * rhs.pRows[2].pCols[3]) + (lhs.pRows[2].pCols[3] * rhs.pRows[3].pCols[3]),
+		/* 30 */ (lhs.pRows[3].pCols[0] * rhs.pRows[0].pCols[0]) + (lhs.pRows[3].pCols[1] * rhs.pRows[1].pCols[0]) + (lhs.pRows[3].pCols[2] * rhs.pRows[2].pCols[0]) + (lhs.pRows[3].pCols[3] * rhs.pRows[3].pCols[0]), /*31*/ (lhs.pRows[3].pCols[0] * rhs.pRows[0].pCols[1]) + (lhs.pRows[3].pCols[1] * rhs.pRows[1].pCols[1]) + (lhs.pRows[3].pCols[2] * rhs.pRows[2].pCols[1]) + (lhs.pRows[3].pCols[3] * rhs.pRows[3].pCols[1]), /*32*/ (lhs.pRows[3].pCols[0] * rhs.pRows[0].pCols[2]) + (lhs.pRows[3].pCols[1] * rhs.pRows[1].pCols[2]) + (lhs.pRows[3].pCols[2] * rhs.pRows[2].pCols[2]) + (lhs.pRows[3].pCols[3] * rhs.pRows[3].pCols[2]), /*33*/ (lhs.pRows[3].pCols[0] * rhs.pRows[0].pCols[3]) + (lhs.pRows[3].pCols[1] * rhs.pRows[1].pCols[3]) + (lhs.pRows[3].pCols[2] * rhs.pRows[2].pCols[3]) + (lhs.pRows[3].pCols[3] * rhs.pRows[3].pCols[3])
 	};
+
+	//Matrix4 m = rhs.transpose();
+
+	//return 
+	//{
+	//	dot(lhs.pRows[0], m.pRows[0]), dot(lhs.pRows[0], m.pRows[1]), dot(lhs.pRows[0], m.pRows[2]), dot(lhs.pRows[0], m.pRows[3]),
+	//	dot(lhs.pRows[1], m.pRows[0]), dot(lhs.pRows[1], m.pRows[1]), dot(lhs.pRows[1], m.pRows[2]), dot(lhs.pRows[1], m.pRows[3]),
+	//	dot(lhs.pRows[2], m.pRows[0]), dot(lhs.pRows[2], m.pRows[1]), dot(lhs.pRows[2], m.pRows[2]), dot(lhs.pRows[2], m.pRows[3]),
+	//	dot(lhs.pRows[3], m.pRows[0]), dot(lhs.pRows[3], m.pRows[1]), dot(lhs.pRows[3], m.pRows[2]), dot(lhs.pRows[3], m.pRows[3])
+	//};
 }
 
 inline Vector4 cliqCity::graphicsMath::operator*(const Vector4& lhs, const Matrix4& rhs)
