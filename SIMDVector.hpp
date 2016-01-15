@@ -1,5 +1,5 @@
 #pragma once
-#include "simd\SIMD\simd.h"
+#include "SIMD/SIMD/simd.h"
 
 #ifdef _WINDLL
 #define CGM_DLL __declspec(dllexport)
@@ -27,13 +27,15 @@ namespace cliqCity
 				};
 			};
 
+			static SIMDVector SetVector(const float& x, const float& y, const float& z, const float& w);
 			static SIMDVector SetVector(const Vector4& vector);
 			static SIMDVector SetVector(const Vector3& vector);
 			static SIMDVector SetVector(const Vector2& vector);
 
 			inline SIMDVector(const SIMDVector& other) : m(other.m) {};
 			inline SIMDVector(const float128_t& m) : m(m) {};
-			inline SIMDVector() {};
+			inline SIMDVector(const float& x, const float& y, const float& z, const float& w) : SIMDVector(simd::Set(x, y, z, w)){}
+			inline SIMDVector() : SIMDVector(simd::Set(0.0f)) {};
 
 			SIMDVector& operator+=(const SIMDVector& rhs);
 			SIMDVector& operator-=(const SIMDVector& rhs);

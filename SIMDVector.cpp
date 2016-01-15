@@ -2,6 +2,12 @@
 #include "Vector.hpp"
 
 using namespace cliqCity::graphicsMath;
+using namespace cliqCity;
+
+SIMDVector SIMDVector::SetVector(const float& x, const float& y, const float& z, const float& w)
+{
+	return { simd::Set(x, y, z, w) };
+}
 
 inline SIMDVector SIMDVector::SetVector(const Vector4& vector)
 {

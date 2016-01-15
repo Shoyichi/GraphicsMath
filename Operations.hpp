@@ -151,7 +151,7 @@ namespace cliqCity
 		template<class Vector>
 		inline void LoadVector(Vector* source, SIMDVector* dest)
 		{
-			*dest = simd::Load_Aligned(source->pCols);
+			*dest = simd::Load_Unaligned(source->pCols);
 		}
 
 		template<class Vector>
