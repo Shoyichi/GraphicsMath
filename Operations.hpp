@@ -1,13 +1,23 @@
 #pragma once
 #define _USE_MATH_DEFINES
 #include <cmath>
-#include "Vector.hpp"
-#include "SIMDVector.hpp"
+//#include "Vector.hpp"
+//#include "Quaternion.hpp"
+//#include "SIMDVector.hpp"
 
 namespace cliqCity
 {
 	namespace graphicsMath
 	{
+		struct Matrix4;
+		struct Matrix3;
+		struct Matrix2;
+		struct Vector4;
+		struct Vector3;
+		struct Vector2;
+		struct Quaternion;
+		struct SIMDVector;
+		struct SIMDMatrix;
 
 		template <class Matrix>
 		struct Components
@@ -54,6 +64,42 @@ namespace cliqCity
 			static inline unsigned int FloatCount()
 			{
 				return 4;
+			}
+		};
+
+		template<>
+		struct Components<Quaternion>
+		{
+			static inline unsigned int FloatCount()
+			{
+				return 4;
+			}
+		};
+
+		template<>
+		struct Components<Matrix4>
+		{
+			static inline unsigned int RowCount()
+			{
+				return 4;
+			}
+		};
+
+		template<>
+		struct Components<Matrix3>
+		{
+			static inline unsigned int RowCount()
+			{
+				return 3;
+			}
+		};
+
+		template<>
+		struct Components<Matrix2>
+		{
+			static inline unsigned int RowCount()
+			{
+				return 2;
 			}
 		};
 
@@ -112,6 +158,24 @@ namespace cliqCity
 		inline void StoreVector(SIMDVector* source, Vector* dest)
 		{
 			simd::Store(dest->pCols, source->m);
+		}
+
+		template<class Matrix>
+		inline void LoadMatrix(Matrix* source, SIMDMatrix* dest)
+		{
+			for (unsigned int i = 0; i < Components<Matrix>::RowCount(); i++)
+			{
+				dest->m[i] = simd::Load_Unaligned(source->pRows[i].pCols);
+			}
+		}
+
+		template<class Matrix>
+		inline void StoreMatrix(SIMDMatrix* source, Matrix* dest)
+		{
+			for (unsigned int i = 0; i < Components<Matrix>::RowCount(); i++)
+			{
+				dest->Magnitude[i] = simd::Store(dest->pRows[i].pCols, source->m[i]);
+			}
 		}
 
 	}

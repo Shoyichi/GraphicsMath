@@ -11,10 +11,6 @@ namespace cliqCity
 {
 	namespace graphicsMath
 	{
-		struct Matrix4;
-		struct Matrix3;
-		struct Matrix2;
-
 		struct CGM_DLL SIMDMatrix
 		{
 			union
@@ -35,18 +31,9 @@ namespace cliqCity
 				
 			};
 
-			static void LoadMatrix4(Matrix4* source, SIMDMatrix* dest);
-			static void LoadMatrix3(Matrix3* source, SIMDMatrix* dest);
-			static void LoadMatrix2(Matrix2* source, SIMDMatrix* dest);
-
-			static void StoreMatrix4(SIMDMatrix* source, Matrix4* dest);
-			static void StoreMatrix3(SIMDMatrix* source, Matrix3* dest);
-			static void StoreMatrix2(SIMDMatrix* source, Matrix2* dest);
-
 			SIMDMatrix(const SIMDMatrix& other);
 			SIMDMatrix(const float128_t& m0, const float128_t& m1, const float128_t& m2, const float128_t& m3);
 			SIMDMatrix() {};
-
 
 			SIMDMatrix transpose()		const;
 			SIMDMatrix inverse()		const;
