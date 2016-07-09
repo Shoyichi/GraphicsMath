@@ -79,9 +79,7 @@ inline Vector2& Vector2::operator=(const Vector2& rhs)
 
 inline Vector2 Vector2::operator-()
 {
-	x = -x;
-	y = -y;
-	return *this;
+	return{ -x, -y };
 }
 
 inline float& Vector2::operator[](const unsigned int& index)
@@ -170,10 +168,7 @@ inline Vector3& Vector3::operator=(const Vector3& rhs)
 
 inline Vector3 Vector3::operator-()
 {
-	x = -x;
-	y = -y;
-	z = -z;
-	return *this;
+	return{ -x, -y, -z };
 }
 
 inline float& Vector3::operator[](const unsigned int& index)
@@ -305,12 +300,8 @@ inline Vector4 Vector4::operator-()
 #ifdef SIMD
 	this->v = simd::Negate(this->v);
 #else
-	x = -x;
-	y = -y;
-	z = -z;
-	w = -w;
+	return{ -x, -y, -z, -w };
 #endif
-	return *this;
 }
 
 inline float& Vector4::operator[](const unsigned int& index)
@@ -428,7 +419,7 @@ inline Vector3 cliqCity::graphicsMath::operator*(const float& lhs, const Vector3
 
 inline Vector4 cliqCity::graphicsMath::operator+(const Vector4& lhs, const Vector4& rhs)
 {
-	return { lhs.x + rhs.x, lhs.y + rhs.y, lhs.z + rhs.z, lhs.w + rhs.w };
+	return{ lhs.x + rhs.x, lhs.y + rhs.y, lhs.z + rhs.z, lhs.w + rhs.w };
 }
 
 inline Vector4 cliqCity::graphicsMath::operator-(const Vector4& lhs, const Vector4& rhs)
@@ -438,28 +429,28 @@ inline Vector4 cliqCity::graphicsMath::operator-(const Vector4& lhs, const Vecto
 
 inline Vector4 cliqCity::graphicsMath::operator*(const Vector4& lhs, const Vector4& rhs)
 {
-	return { lhs.x * rhs.x, lhs.y * rhs.y, lhs.z * rhs.z, lhs.w * rhs.w };
+	return{ lhs.x * rhs.x, lhs.y * rhs.y, lhs.z * rhs.z, lhs.w * rhs.w };
 }
 
 inline Vector4 cliqCity::graphicsMath::operator+(const Vector4& lhs, const float& rhs)
 {
-	return { lhs.x + rhs, lhs.y + rhs, lhs.z + rhs, lhs.w + rhs };
+	return{ lhs.x + rhs, lhs.y + rhs, lhs.z + rhs, lhs.w + rhs };
 }
 
 inline Vector4 cliqCity::graphicsMath::operator-(const Vector4& lhs, const float& rhs)
 {
-	return { lhs.x - rhs, lhs.y - rhs, lhs.z - rhs, lhs.w - rhs };
+	return{ lhs.x - rhs, lhs.y - rhs, lhs.z - rhs, lhs.w - rhs };
 }
 
 inline Vector4 cliqCity::graphicsMath::operator*(const Vector4& lhs, const float& rhs)
 {
-	return { lhs.x * rhs, lhs.y * rhs, lhs.z * rhs, lhs.w * rhs };
+	return{ lhs.x * rhs, lhs.y * rhs, lhs.z * rhs, lhs.w * rhs };
 }
 
 inline Vector4 cliqCity::graphicsMath::operator/(const Vector4& lhs, const float& rhs)
 {
 	float inv = (1.0f / rhs);
-	return { lhs.x * inv, lhs.y * inv, lhs.z * inv, lhs.w * inv };
+	return{ lhs.x * inv, lhs.y * inv, lhs.z * inv, lhs.w * inv };
 }
 
 inline Vector4 cliqCity::graphicsMath::operator+(const float& lhs, const Vector4& rhs)

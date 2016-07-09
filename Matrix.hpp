@@ -59,7 +59,7 @@ namespace cliqCity
 		{
 			union
 			{
-				struct 
+				struct
 				{
 					Vector3 u, v, w;
 				};
@@ -102,7 +102,7 @@ namespace cliqCity
 
 		struct CGM_DLL Matrix4
 		{
-			union 
+			union
 			{
 				struct
 				{
@@ -129,7 +129,7 @@ namespace cliqCity
 			static Matrix4 normalizedOrthographicLH(const float& left, const float& right, const float& bottom, const float& top, const float& zNear, const float& zFar);
 			static Matrix4 normalizedPerspectiveLH(const float& fovy, const float& aspectRatio, const float& zNear, const float& zFar);
 			static Matrix4 normalizedFrustumLH(const float& left, const float& right, const float& bottom, const float& top, const float& zNear, const float& zFar);
-			
+
 			static Matrix4 lookToRH(const Vector3& direction, const Vector3& position, const Vector3& up);
 			static Matrix4 lookAtRH(const Vector3& target, const Vector3& position, const Vector3& up);
 
@@ -165,7 +165,7 @@ namespace cliqCity
 			Matrix4 operator-=(const Matrix4& rhs);
 			Matrix4 operator*=(const float& rhs);
 
-			Matrix4 operator=(const Matrix4& rhs);
+			Matrix4& operator=(const Matrix4& rhs);
 			Matrix4 operator-();
 
 			Vector4& operator[](const unsigned int& index);
@@ -196,7 +196,7 @@ namespace cliqCity
 
 		CGM_DLL Matrix4 operator+(const Matrix4& lhs, const Matrix4& rhs);
 		CGM_DLL Matrix4 operator-(const Matrix4& lhs, const Matrix4& rhs);
-		
+
 		CGM_DLL Matrix4 operator*(const Matrix4& lhs, const Matrix4& rhs);
 		CGM_DLL Vector4 operator*(const Vector4& lhs, const Matrix4& rhs);
 		CGM_DLL Matrix4 operator*(const Matrix4& lhs, const float& rhs);

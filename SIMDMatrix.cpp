@@ -3,7 +3,7 @@
 
 using namespace cliqCity::graphicsMath;
 
-inline SIMDMatrix::SIMDMatrix(const SIMDMatrix& other) 
+inline SIMDMatrix::SIMDMatrix(const SIMDMatrix& other)
 {
 	this->m[0] = other.m[0];
 	this->m[1] = other.m[1];

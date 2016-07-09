@@ -28,7 +28,7 @@ namespace cliqCity
 					SIMDVector u, v, w, t;
 				};
 
-				
+
 			};
 
 			SIMDMatrix(const SIMDMatrix& other);

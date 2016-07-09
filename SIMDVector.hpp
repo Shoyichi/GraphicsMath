@@ -17,11 +17,11 @@ namespace cliqCity
 
 		struct __declspec(align(16)) CGM_DLL SIMDVector
 		{
-			union 
+			union
 			{
 				float128_t m;
 
-				struct 
+				struct
 				{
 					float x, y, z, w;
 				};
@@ -34,7 +34,7 @@ namespace cliqCity
 
 			inline SIMDVector(const SIMDVector& other) : m(other.m) {};
 			inline SIMDVector(const float128_t& m) : m(m) {};
-			inline SIMDVector(const float& x, const float& y, const float& z, const float& w) : SIMDVector(simd::Set(x, y, z, w)){}
+			inline SIMDVector(const float& x, const float& y, const float& z, const float& w) : SIMDVector(simd::Set(x, y, z, w)) {}
 			inline SIMDVector() : SIMDVector(simd::Set(0.0f)) {};
 
 			SIMDVector& operator+=(const SIMDVector& rhs);

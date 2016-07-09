@@ -7,29 +7,29 @@ using namespace cliqCity::graphicsMath;
 
 // Matrix2
 
-inline Matrix2::Matrix2(const Vector2& u, const Vector2& v) : u(u), v(v) 
+inline Matrix2::Matrix2(const Vector2& u, const Vector2& v) : u(u), v(v)
 {
 }
 
 inline Matrix2::Matrix2(
 	const float& u1, const float& u2,
-	const float& v1, const float& v2) : 
-	u(u1, u2), 
-	v(v1, v2) 
+	const float& v1, const float& v2) :
+	u(u1, u2),
+	v(v1, v2)
 {
 }
 
-inline Matrix2::Matrix2(float m[2][2]) : 
+inline Matrix2::Matrix2(float m[2][2]) :
 	Matrix2(
 		m[0][0], m[0][1],
-		m[1][0], m[1][1]) 
+		m[1][0], m[1][1])
 {
 }
 
 inline Matrix2::Matrix2(float s) :
 	Matrix2(
 		s, 0.0f,
-		0.0f, s) 
+		0.0f, s)
 {
 }
 
@@ -131,8 +131,8 @@ inline Matrix3 Matrix3::rotateX(const float& angle)
 	float c = cos(angle);
 	return Matrix3(
 		1.0f, 0.0f, 0.0f,
-		0.0f,	c,	s,
-		0.0f,	-s,	c);
+		0.0f, c, s,
+		0.0f, -s, c);
 }
 
 inline Matrix3 Matrix3::rotateY(const float& angle)
@@ -140,9 +140,9 @@ inline Matrix3 Matrix3::rotateY(const float& angle)
 	float s = sin(angle);
 	float c = cos(angle);
 	return Matrix3(
-		c,	0.0f,	-s,
+		c, 0.0f, -s,
 		0.0f, 1.0f, 0.0f,
-		s,	0.0f,	c);
+		s, 0.0f, c);
 }
 
 inline Matrix3 Matrix3::rotateZ(const float& angle)
@@ -150,12 +150,12 @@ inline Matrix3 Matrix3::rotateZ(const float& angle)
 	float s = sin(angle);
 	float c = cos(angle);
 	return Matrix3(
-		c,	s,	0.0f,
-		-s, c,	0.0f,
+		c, s, 0.0f,
+		-s, c, 0.0f,
 		0.0f, 0.0f, 1.0f);
 }
 
-inline Matrix3::Matrix3(const Vector3& u, const Vector3& v, const Vector3& w) : u(u), v(v), w(w) 
+inline Matrix3::Matrix3(const Vector3& u, const Vector3& v, const Vector3& w) : u(u), v(v), w(w)
 {
 };
 
@@ -163,9 +163,9 @@ inline Matrix3::Matrix3(
 	const float& u1, const float& u2, const float& u3,
 	const float& v1, const float& v2, const float& v3,
 	const float& w1, const float& w2, const float& w3) :
-		u(u1, u2, u3),
-		v(v1, v2, v3),
-		w(w1, w2, w3) 
+	u(u1, u2, u3),
+	v(v1, v2, v3),
+	w(w1, w2, w3)
 {
 };
 
@@ -174,7 +174,7 @@ inline Matrix3::Matrix3(float m[3][3]) :
 		m[0][0], m[0][1], m[0][2],
 		m[1][0], m[1][1], m[1][2],
 		m[2][0], m[2][1], m[2][2]
-		) 
+		)
 {
 };
 
@@ -183,7 +183,7 @@ inline Matrix3::Matrix3(float s) :
 		s, 0.0f, 0.0f,
 		0.0f, s, 0.0f,
 		0.0f, 0.0f, s
-		) 
+		)
 {
 };
 
@@ -219,25 +219,25 @@ Matrix3 Matrix3::inverse() const
 	float c33 = (u.x * v.y) - (u.y * v.x);	//	+Matrix2(u.x, u.y, v.x, v.y).determinant();
 
 
-	//float c11 = +Matrix2(v.y, v.z, w.y, w.z).determinant();
-	//float c12 = -Matrix2(v.x, v.z, w.x, w.z).determinant();
-	//float c13 = +Matrix2(v.x, v.y, w.x, w.y).determinant();
-	//float c21 = -Matrix2(u.y, u.z, w.y, w.z).determinant();
-	//float c22 = +Matrix2(u.x, u.z, w.x, w.z).determinant();
-	//float c23 = -Matrix2(u.x, u.y, w.x, w.y).determinant();
-	//float c31 = +Matrix2(u.y, u.z, v.y, v.z).determinant();
-	//float c32 = -Matrix2(u.x, u.z, v.x, v.z).determinant();
-	//float c33 = +Matrix2(u.x, u.y, v.x, v.y).determinant();
+											//float c11 = +Matrix2(v.y, v.z, w.y, w.z).determinant();
+											//float c12 = -Matrix2(v.x, v.z, w.x, w.z).determinant();
+											//float c13 = +Matrix2(v.x, v.y, w.x, w.y).determinant();
+											//float c21 = -Matrix2(u.y, u.z, w.y, w.z).determinant();
+											//float c22 = +Matrix2(u.x, u.z, w.x, w.z).determinant();
+											//float c23 = -Matrix2(u.x, u.y, w.x, w.y).determinant();
+											//float c31 = +Matrix2(u.y, u.z, v.y, v.z).determinant();
+											//float c32 = -Matrix2(u.x, u.z, v.x, v.z).determinant();
+											//float c33 = +Matrix2(u.x, u.y, v.x, v.y).determinant();
 
-	return Matrix3(	c11, c21, c31,
-					c12, c22, c32,
-					c13, c23, c33) *= (1.0f / determinant());	// Transpose of cofactors
+	return Matrix3(c11, c21, c31,
+		c12, c22, c32,
+		c13, c23, c33) *= (1.0f / determinant());	// Transpose of cofactors
 }
 
 inline float Matrix3::determinant() const
 {
 	// ((u x v) * w)
-	return	
+	return
 		(((u.y * v.z) - (u.z * v.y)) * w.x) +
 		(((u.z * v.x) - (u.x * v.z)) * w.y) +
 		(((u.x * v.y) - (u.y * v.x)) * w.z);
@@ -520,7 +520,7 @@ inline Matrix4 Matrix4::rotateX(const float& angle)
 		1.0f, 0.0f, 0.0f, 0.0f,
 		0.0f, c, s, 0.0f,
 		0.0f, -s, c, 0.0f,
-		0.0f, 0.0f, 0.0, 1.0f);		
+		0.0f, 0.0f, 0.0, 1.0f);
 }
 
 inline Matrix4 Matrix4::rotateY(const float& angle)
@@ -555,7 +555,7 @@ inline Matrix4 Matrix4::translate(const Vector3& t)
 }
 
 
-inline Matrix4::Matrix4(const Vector4& u, const Vector4& v, const Vector4& w, const Vector4& t) : u(u), v(v), w(w), t(t) 
+inline Matrix4::Matrix4(const Vector4& u, const Vector4& v, const Vector4& w, const Vector4& t) : u(u), v(v), w(w), t(t)
 {
 };
 
@@ -564,10 +564,10 @@ inline Matrix4::Matrix4(
 	const float& v1, const float& v2, const float& v3, const float& v4,
 	const float& w1, const float& w2, const float& w3, const float& w4,
 	const float& t1, const float& t2, const float& t3, const float& t4) :
-		u(u1, u2, u3, u4),
-		v(v1, v2, v3, v4),
-		w(w1, w2, w3, w4),
-		t(t1, t2, t3, t4) 
+	u(u1, u2, u3, u4),
+	v(v1, v2, v3, v4),
+	w(w1, w2, w3, w4),
+	t(t1, t2, t3, t4)
 {
 };
 
@@ -576,20 +576,20 @@ inline Matrix4::Matrix4(float m[4][4]) :
 		m[0][0], m[0][1], m[0][2], m[0][3],
 		m[1][0], m[1][1], m[1][2], m[1][3],
 		m[2][0], m[2][1], m[2][2], m[2][3],
-		m[3][0], m[3][1], m[3][2], m[3][3]) 
+		m[3][0], m[3][1], m[3][2], m[3][3])
 {
 };
 
-inline Matrix4::Matrix4(float s) : 
+inline Matrix4::Matrix4(float s) :
 	Matrix4(
 		s, 0.0f, 0.0f, 0.0f,
 		0.0f, s, 0.0f, 0.0f,
 		0.0f, 0.0f, s, 0.0f,
-		0.0f, 0.0f, 0.0f, s) 
+		0.0f, 0.0f, 0.0f, s)
 {
 };
 
-inline Matrix4::Matrix4() : Matrix4(1.0f) 
+inline Matrix4::Matrix4() : Matrix4(1.0f)
 {
 };
 
@@ -618,8 +618,8 @@ inline Matrix4 Matrix4::transpose() const
 Matrix4 Matrix4::inverse() const
 {
 	/*(((u.y * v.z) - (u.z * v.y)) * w.x) +
-		(((u.z * v.x) - (u.x * v.z)) * w.y) +
-		(((u.x * v.y) - (u.y * v.x)) * w.z);*/
+	(((u.z * v.x) - (u.x * v.z)) * w.y) +
+	(((u.x * v.y) - (u.y * v.x)) * w.z);*/
 
 
 	float c11 = +Matrix3(v.y, v.z, v.w, w.y, w.z, w.w, t.y, t.z, t.w).determinant();
@@ -643,7 +643,7 @@ Matrix4 Matrix4::inverse() const
 	float c44 = +Matrix3(u.x, u.y, u.z, v.x, v.y, v.z, w.x, w.y, w.z).determinant();
 
 	float determinant = (u.x * c11) + (u.y * c12) + (u.z * c13) + (u.w * c14);
-	return 
+	return
 		Matrix4(
 			c11, c21, c31, c41,
 			c12, c22, c32, c42,
@@ -692,7 +692,7 @@ inline Matrix4 Matrix4::operator*=(const float& rhs)
 
 // Unary
 
-inline Matrix4 Matrix4::operator=(const Matrix4& rhs)
+inline Matrix4& Matrix4::operator=(const Matrix4& rhs)
 {
 	u = rhs.u;
 	v = rhs.v;
@@ -742,7 +742,7 @@ inline Matrix2 cliqCity::graphicsMath::operator-(const Matrix2& lhs, const Matri
 {
 	return
 	{
-		lhs.pRows[0].pCols[0] - rhs.pRows[0].pCols[0], lhs.pRows[0].pCols[1] - rhs.pRows[0].pCols[1], 
+		lhs.pRows[0].pCols[0] - rhs.pRows[0].pCols[0], lhs.pRows[0].pCols[1] - rhs.pRows[0].pCols[1],
 		lhs.pRows[1].pCols[0] - rhs.pRows[1].pCols[0], lhs.pRows[1].pCols[1] - rhs.pRows[1].pCols[1]
 	};
 }
@@ -752,7 +752,7 @@ inline Matrix2 cliqCity::graphicsMath::operator*(const Matrix2& lhs, const Matri
 	return Matrix2(
 		lhs.pRows[0].pCols[0] * rhs.pRows[0].pCols[0] + lhs.pRows[0].pCols[1] * rhs.pRows[1].pCols[0], lhs.pRows[0].pCols[0] * rhs.pRows[0].pCols[1] + lhs.pRows[0].pCols[1] * rhs.pRows[1].pCols[1],
 		lhs.pRows[1].pCols[0] * rhs.pRows[0].pCols[0] + lhs.pRows[1].pCols[1] * rhs.pRows[1].pCols[0], lhs.pRows[1].pCols[0] * rhs.pRows[0].pCols[1] + lhs.pRows[1].pCols[1] * rhs.pRows[1].pCols[1]
-	);
+		);
 }
 
 Vector2 cliqCity::graphicsMath::operator*(const Vector2& lhs, const Matrix2& rhs)
@@ -772,7 +772,7 @@ inline Matrix2 cliqCity::graphicsMath::operator*(const Matrix2& lhs, const float
 {
 	return
 	{
-		lhs.pRows[0].pCols[0] * rhs, lhs.pRows[0].pCols[1] * rhs, 
+		lhs.pRows[0].pCols[0] * rhs, lhs.pRows[0].pCols[1] * rhs,
 		lhs.pRows[1].pCols[0] * rhs, lhs.pRows[1].pCols[1] * rhs
 	};
 }
@@ -794,7 +794,7 @@ inline Matrix3 cliqCity::graphicsMath::operator-(const Matrix3& lhs, const Matri
 	return
 	{
 		lhs.pRows[0].pCols[0] - rhs.pRows[0].pCols[0], lhs.pRows[0].pCols[1] - rhs.pRows[0].pCols[1], lhs.pRows[0].pCols[2] - rhs.pRows[0].pCols[2],
-		lhs.pRows[1].pCols[0] - rhs.pRows[1].pCols[0], lhs.pRows[1].pCols[1] - rhs.pRows[1].pCols[1], lhs.pRows[1].pCols[2] - rhs.pRows[1].pCols[2], 
+		lhs.pRows[1].pCols[0] - rhs.pRows[1].pCols[0], lhs.pRows[1].pCols[1] - rhs.pRows[1].pCols[1], lhs.pRows[1].pCols[2] - rhs.pRows[1].pCols[2],
 		lhs.pRows[2].pCols[0] - rhs.pRows[2].pCols[0], lhs.pRows[2].pCols[1] - rhs.pRows[2].pCols[1], lhs.pRows[2].pCols[2] - rhs.pRows[2].pCols[2]
 	};
 }
@@ -804,7 +804,7 @@ inline Matrix3 cliqCity::graphicsMath::operator*(const Matrix3& lhs, const Matri
 	return
 	{
 		/* 00 */ (lhs.pRows[0].pCols[0] * rhs.pRows[0].pCols[0]) + (lhs.pRows[0].pCols[1] * rhs.pRows[1].pCols[0]) + (lhs.pRows[0].pCols[2] * rhs.pRows[2].pCols[0]) + (lhs.pRows[0].pCols[3] * rhs.pRows[3].pCols[0]), /*01*/ (lhs.pRows[0].pCols[0] * rhs.pRows[0].pCols[1]) + (lhs.pRows[0].pCols[1] * rhs.pRows[1].pCols[1]) + (lhs.pRows[0].pCols[2] * rhs.pRows[2].pCols[1]) + (lhs.pRows[0].pCols[3] * rhs.pRows[3].pCols[1]), /*02*/ (lhs.pRows[0].pCols[0] * rhs.pRows[0].pCols[2]) + (lhs.pRows[0].pCols[1] * rhs.pRows[1].pCols[2]) + (lhs.pRows[0].pCols[2] * rhs.pRows[2].pCols[2]) + (lhs.pRows[0].pCols[3] * rhs.pRows[3].pCols[2]),
-		/* 10 */ (lhs.pRows[1].pCols[0] * rhs.pRows[0].pCols[0]) + (lhs.pRows[1].pCols[1] * rhs.pRows[1].pCols[0]) + (lhs.pRows[1].pCols[2] * rhs.pRows[2].pCols[0]) + (lhs.pRows[1].pCols[3] * rhs.pRows[3].pCols[0]), /*11*/ (lhs.pRows[1].pCols[0] * rhs.pRows[0].pCols[1]) + (lhs.pRows[1].pCols[1] * rhs.pRows[1].pCols[1]) + (lhs.pRows[1].pCols[2] * rhs.pRows[2].pCols[1]) + (lhs.pRows[1].pCols[3] * rhs.pRows[3].pCols[1]), /*12*/ (lhs.pRows[1].pCols[0] * rhs.pRows[0].pCols[2]) + (lhs.pRows[1].pCols[1] * rhs.pRows[1].pCols[2]) + (lhs.pRows[1].pCols[2] * rhs.pRows[2].pCols[2]) + (lhs.pRows[1].pCols[3] * rhs.pRows[3].pCols[2]), 
+		/* 10 */ (lhs.pRows[1].pCols[0] * rhs.pRows[0].pCols[0]) + (lhs.pRows[1].pCols[1] * rhs.pRows[1].pCols[0]) + (lhs.pRows[1].pCols[2] * rhs.pRows[2].pCols[0]) + (lhs.pRows[1].pCols[3] * rhs.pRows[3].pCols[0]), /*11*/ (lhs.pRows[1].pCols[0] * rhs.pRows[0].pCols[1]) + (lhs.pRows[1].pCols[1] * rhs.pRows[1].pCols[1]) + (lhs.pRows[1].pCols[2] * rhs.pRows[2].pCols[1]) + (lhs.pRows[1].pCols[3] * rhs.pRows[3].pCols[1]), /*12*/ (lhs.pRows[1].pCols[0] * rhs.pRows[0].pCols[2]) + (lhs.pRows[1].pCols[1] * rhs.pRows[1].pCols[2]) + (lhs.pRows[1].pCols[2] * rhs.pRows[2].pCols[2]) + (lhs.pRows[1].pCols[3] * rhs.pRows[3].pCols[2]),
 		/* 20 */ (lhs.pRows[2].pCols[0] * rhs.pRows[0].pCols[0]) + (lhs.pRows[2].pCols[1] * rhs.pRows[1].pCols[0]) + (lhs.pRows[2].pCols[2] * rhs.pRows[2].pCols[0]) + (lhs.pRows[2].pCols[3] * rhs.pRows[3].pCols[0]), /*21*/ (lhs.pRows[2].pCols[0] * rhs.pRows[0].pCols[1]) + (lhs.pRows[2].pCols[1] * rhs.pRows[1].pCols[1]) + (lhs.pRows[2].pCols[2] * rhs.pRows[2].pCols[1]) + (lhs.pRows[2].pCols[3] * rhs.pRows[3].pCols[1]), /*22*/ (lhs.pRows[2].pCols[0] * rhs.pRows[0].pCols[2]) + (lhs.pRows[2].pCols[1] * rhs.pRows[1].pCols[2]) + (lhs.pRows[2].pCols[2] * rhs.pRows[2].pCols[2]) + (lhs.pRows[2].pCols[3] * rhs.pRows[3].pCols[2])
 	};
 
@@ -835,8 +835,8 @@ inline Matrix3 cliqCity::graphicsMath::operator*(const Matrix3& lhs, const float
 {
 	return
 	{
-		lhs.pRows[0].pCols[0] * rhs, lhs.pRows[0].pCols[1] * rhs, lhs.pRows[0].pCols[2] * rhs, 
-		lhs.pRows[1].pCols[0] * rhs, lhs.pRows[1].pCols[1] * rhs, lhs.pRows[1].pCols[2] * rhs, 
+		lhs.pRows[0].pCols[0] * rhs, lhs.pRows[0].pCols[1] * rhs, lhs.pRows[0].pCols[2] * rhs,
+		lhs.pRows[1].pCols[0] * rhs, lhs.pRows[1].pCols[1] * rhs, lhs.pRows[1].pCols[2] * rhs,
 		lhs.pRows[2].pCols[0] * rhs, lhs.pRows[2].pCols[1] * rhs, lhs.pRows[2].pCols[2] * rhs
 	};
 }
@@ -845,7 +845,7 @@ inline Matrix3 cliqCity::graphicsMath::operator*(const Matrix3& lhs, const float
 
 inline Matrix4 cliqCity::graphicsMath::operator+(const Matrix4& lhs, const Matrix4& rhs)
 {
-	return 
+	return
 	{
 		lhs.pRows[0].pCols[0] + rhs.pRows[0].pCols[0], lhs.pRows[0].pCols[1] + rhs.pRows[0].pCols[1], lhs.pRows[0].pCols[2] + rhs.pRows[0].pCols[2], lhs.pRows[0].pCols[3] + rhs.pRows[0].pCols[3],
 		lhs.pRows[1].pCols[0] + rhs.pRows[1].pCols[0], lhs.pRows[1].pCols[1] + rhs.pRows[1].pCols[1], lhs.pRows[1].pCols[2] + rhs.pRows[1].pCols[2], lhs.pRows[1].pCols[3] + rhs.pRows[1].pCols[3],

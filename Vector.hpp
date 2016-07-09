@@ -17,7 +17,7 @@ namespace cliqCity
 	{
 		struct CGM_DLL Vector2
 		{
-			union 
+			union
 			{
 				struct
 				{
@@ -54,7 +54,7 @@ namespace cliqCity
 
 		struct CGM_DLL Vector3
 		{
-			union 
+			union
 			{
 				struct
 				{
@@ -142,12 +142,12 @@ namespace cliqCity
 
 			inline operator Vector3()
 			{
-				return { this->x, this->y, this->z };
+				return{ this->x, this->y, this->z };
 			}
 
 			inline operator Vector2()
 			{
-				return { this->x, this->y };
+				return{ this->x, this->y };
 			}
 		};
 

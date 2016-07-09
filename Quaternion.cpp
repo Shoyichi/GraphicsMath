@@ -7,15 +7,15 @@ using namespace cliqCity::graphicsMath;
 
 Quaternion Quaternion::rollPitchYaw(const float& roll, const float& pitch, const float& yaw)
 {
-	float halfRoll		= roll	* 0.5f;
-	float halfPitch		= pitch * 0.5f;
-	float halfYaw		= yaw	* 0.5f;
-	float cosHalfRoll	= cosf(halfRoll);
-	float cosHalfPitch	= cosf(halfPitch);
-	float cosHalfYaw	= cosf(halfYaw);
-	float sinHalfRoll	= sinf(halfRoll);
-	float sinHalfPitch	= sinf(halfPitch);
-	float sinHalfYaw	= sinf(halfYaw);
+	float halfRoll = roll	* 0.5f;
+	float halfPitch = pitch * 0.5f;
+	float halfYaw = yaw	* 0.5f;
+	float cosHalfRoll = cosf(halfRoll);
+	float cosHalfPitch = cosf(halfPitch);
+	float cosHalfYaw = cosf(halfYaw);
+	float sinHalfRoll = sinf(halfRoll);
+	float sinHalfPitch = sinf(halfPitch);
+	float sinHalfYaw = sinf(halfYaw);
 	return Quaternion(
 		(cosHalfYaw * cosHalfPitch * cosHalfRoll) + (sinHalfYaw * sinHalfPitch * sinHalfRoll),
 		(cosHalfYaw * sinHalfPitch * cosHalfRoll) + (sinHalfYaw * cosHalfPitch * sinHalfRoll),
@@ -27,6 +27,54 @@ inline Quaternion Quaternion::angleAxis(const float& angle, const Vector3& axis)
 {
 	float halfAngle = angle * 0.5f;
 	return Quaternion(cos(halfAngle), sin(halfAngle) * axis);
+}
+
+inline Quaternion Quaternion::fromMatrix3(const Matrix3& mat)
+{
+	const float m11 = mat.pData[0], m12 = mat.pData[1], m13 = mat.pData[2];
+	const float m21 = mat.pData[3], m22 = mat.pData[4], m23 = mat.pData[5];
+	const float m31 = mat.pData[6], m32 = mat.pData[7], m33 = mat.pData[8];
+
+	// Determine which of w, x, y or z has the largest absolute value
+	float fourWSquaredMinus1 = +m11 + m22 + m33;
+	float fourXSquaredMinus1 = +m11 - m22 - m33;
+	float fourYSquaredMinus1 = -m11 + m22 - m33;
+	float fourZSquaredMinus1 = -m11 - m22 + m33;
+
+	int biggestIndex = 0;
+	float fourBiggestSquardeMinus1 = fourWSquaredMinus1;
+	if (fourXSquaredMinus1 > fourBiggestSquardeMinus1)
+	{
+		fourBiggestSquardeMinus1 = fourXSquaredMinus1;
+		biggestIndex = 1;
+	}
+	if (fourYSquaredMinus1 > fourBiggestSquardeMinus1)
+	{
+		fourBiggestSquardeMinus1 = fourYSquaredMinus1;
+		biggestIndex = 2;
+	}
+	if (fourZSquaredMinus1 > fourBiggestSquardeMinus1)
+	{
+		fourBiggestSquardeMinus1 = fourZSquaredMinus1;
+		biggestIndex = 3;
+	}
+
+	float biggestVal = sqrt(fourBiggestSquardeMinus1 + 1) * .5f;
+	float mult = 0.25f / biggestVal;
+
+	switch (biggestIndex)
+	{
+	case 0:
+		return Quaternion(biggestVal, (m23 - m32) * mult, (m31 - m13) * mult, (m12 - m21) * mult);
+	case 1:
+		return Quaternion(biggestVal, (m23 - m32) * mult, (m12 + m21) * mult, (m31 + m13) * mult);
+	case 2:
+		return Quaternion(biggestVal, (m31 - m13) * mult, (m12 + m21) * mult, (m23 + m32) * mult);
+	case 4:
+		return Quaternion(biggestVal, (m12 - m21) * mult, (m31 + m13) * mult, (m23 + m32) * mult);
+	default:
+		return Quaternion(1, 0, 0, 0);
+	}
 }
 
 inline Quaternion Quaternion::conjugate() const
@@ -71,7 +119,7 @@ Matrix3 Quaternion::toMatrix3() const
 	float yz = v.y * v.z;
 	return Matrix3(
 		1.0f - (2.0f * y2) - (2.0f * z2), (2.0f * xy) + (2.0f * wz), (2.0f * xz) - (2.0f * wy),
-		(2.0f * xy) - (2.0f * wz), 1.0f - (2.0f * x2) - (2.0f * z2), (2.0f * yz) + (2.0f * wx), 
+		(2.0f * xy) - (2.0f * wz), 1.0f - (2.0f * x2) - (2.0f * z2), (2.0f * yz) + (2.0f * wx),
 		(2.0f * xz) + (2.0f * wy), (2.0f * yz) - (2.0f * wx), 1.0f - (2.0f * x2) - (2.0f * y2)
 		);
 }
@@ -95,6 +143,27 @@ Vector3 Quaternion::toEuler() const
 	}
 
 	return euler;
+}
+
+inline void Quaternion::toAngleAxis(float* outAngle, Vector3* outAxis) const
+{
+	Quaternion quat = (*this);
+	if (quat.w > 1)
+	{
+		normalize(quat);
+	}
+
+	*outAngle = 2.0f * acos(quat.w);
+
+	float s = sqrt(1 - quat.w * quat.w);
+	if (s < 0.001f)
+	{
+		*outAxis = quat.v;
+	}
+	else
+	{
+		*outAxis = quat.v / s;
+	}
 }
 
 inline Quaternion& Quaternion::operator+=(const Quaternion& rhs)
@@ -126,11 +195,9 @@ inline Quaternion& Quaternion::operator/=(const float& rhs)
 	return *this;
 }
 
-inline Quaternion& Quaternion::operator-()
+inline Quaternion Quaternion::operator-()
 {
-	w = -w;
-	v = -v;
-	return *this;
+	return{ -w, -x, -y, -z };
 }
 
 inline Quaternion& Quaternion::operator=(const Quaternion& rhs)
@@ -171,9 +238,19 @@ Quaternion cliqCity::graphicsMath::slerp(Quaternion q0, Quaternion q1, const flo
 	return q0 + q1;
 }
 
+bool cliqCity::graphicsMath::operator==(const Quaternion& lhs, const Quaternion& rhs)
+{
+	return lhs.w == rhs.w && lhs.x == rhs.x && lhs.y == rhs.y && lhs.z == rhs.z;
+}
+
+bool cliqCity::graphicsMath::operator!=(const Quaternion& lhs, const Quaternion& rhs)
+{
+	return lhs.w != rhs.w || lhs.x != rhs.x && lhs.y != rhs.y || lhs.z != rhs.z;
+}
+
 inline Quaternion cliqCity::graphicsMath::operator+(const Quaternion& lhs, const Quaternion& rhs)
 {
-	return { lhs.x + rhs.x, lhs.y + rhs.y, lhs.z + rhs.z, lhs.w + rhs.w };
+	return{ lhs.w + rhs.w, lhs.x + rhs.x, lhs.y + rhs.y, lhs.z + rhs.z, };
 }
 
 inline Quaternion cliqCity::graphicsMath::operator*(const Quaternion& lhs, const Quaternion& rhs)
@@ -201,7 +278,12 @@ inline Vector3 cliqCity::graphicsMath::operator*(const Quaternion& lhs, const Ve
 
 inline Quaternion cliqCity::graphicsMath::operator*(const Quaternion& lhs, const float& rhs)
 {
-	return { lhs.w * rhs, lhs.x * rhs, lhs.y * rhs, lhs.z * rhs };
+	return{ lhs.w * rhs, lhs.x * rhs, lhs.y * rhs, lhs.z * rhs };
+}
+
+inline Quaternion cliqCity::graphicsMath::operator*(const float& lhs, const Quaternion& rhs)
+{
+	return{ rhs.w * lhs, rhs.x * lhs, rhs.y * lhs, rhs.z * lhs };
 }
 
 inline Quaternion cliqCity::graphicsMath::operator/(const Quaternion& lhs, const float& rhs)

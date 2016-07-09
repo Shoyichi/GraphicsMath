@@ -6,22 +6,22 @@ using namespace cliqCity;
 
 SIMDVector SIMDVector::SetVector(const float& x, const float& y, const float& z, const float& w)
 {
-	return { simd::Set(x, y, z, w) };
+	return{ simd::Set(x, y, z, w) };
 }
 
 inline SIMDVector SIMDVector::SetVector(const Vector4& vector)
 {
-	return { simd::Set(vector.pCols[0], vector.pCols[1], vector.pCols[2], vector.pCols[3]) };
+	return{ simd::Set(vector.pCols[0], vector.pCols[1], vector.pCols[2], vector.pCols[3]) };
 }
 
 inline SIMDVector SIMDVector::SetVector(const Vector3& vector)
 {
-	return { simd::Set(vector.pCols[0], vector.pCols[1], vector.pCols[2], 0.0f) };
+	return{ simd::Set(vector.pCols[0], vector.pCols[1], vector.pCols[2], 0.0f) };
 }
 
 inline SIMDVector SIMDVector::SetVector(const Vector2& vector)
 {
-	return { simd::Set(vector.pCols[0], vector.pCols[1], 0.0f, 0.0f) };
+	return{ simd::Set(vector.pCols[0], vector.pCols[1], 0.0f, 0.0f) };
 }
 
 inline SIMDVector& SIMDVector::operator+=(const SIMDVector& rhs)
@@ -89,7 +89,7 @@ inline float& SIMDVector::operator[](const unsigned int& index)
 
 inline SIMDVector cliqCity::graphicsMath::cross(const SIMDVector& lhs, const SIMDVector& rhs)
 {
-	return { simd::Cross(lhs.m, rhs.m) };
+	return{ simd::Cross(lhs.m, rhs.m) };
 }
 
 inline SIMDVector cliqCity::graphicsMath::normalize(const SIMDVector& vector)
@@ -116,37 +116,37 @@ inline float cliqCity::graphicsMath::dot(const SIMDVector& lhs, const SIMDVector
 
 inline SIMDVector cliqCity::graphicsMath::operator+(const SIMDVector& lhs, const SIMDVector& rhs)
 {
-	return	{ simd::Add(lhs.m, rhs.m) };
+	return{ simd::Add(lhs.m, rhs.m) };
 }
 
 inline SIMDVector cliqCity::graphicsMath::operator-(const SIMDVector& lhs, const SIMDVector& rhs)
 {
-	return { simd::Subtract(lhs.m, rhs.m) };
+	return{ simd::Subtract(lhs.m, rhs.m) };
 }
 
 inline SIMDVector cliqCity::graphicsMath::operator*(const SIMDVector& lhs, const SIMDVector& rhs)
 {
-	return { simd::Multiply(lhs.m, rhs.m) };
+	return{ simd::Multiply(lhs.m, rhs.m) };
 }
 
 inline SIMDVector cliqCity::graphicsMath::operator+(const SIMDVector& lhs, const float& rhs)
 {
-	return { simd::Add(lhs.m, simd::Set(rhs)) };
+	return{ simd::Add(lhs.m, simd::Set(rhs)) };
 }
 
 inline SIMDVector cliqCity::graphicsMath::operator-(const SIMDVector& lhs, const float& rhs)
 {
-	return { simd::Subtract(lhs.m, simd::Set(rhs)) };
+	return{ simd::Subtract(lhs.m, simd::Set(rhs)) };
 }
 
 inline SIMDVector cliqCity::graphicsMath::operator*(const SIMDVector& lhs, const float& rhs)
 {
-	return { simd::Multiply(lhs.m, simd::Set(rhs)) };
+	return{ simd::Multiply(lhs.m, simd::Set(rhs)) };
 }
 
 inline SIMDVector cliqCity::graphicsMath::operator/(const SIMDVector& lhs, const float& rhs)
 {
-	return { simd::Multiply(lhs.m, simd::Set(1.0f / rhs)) };
+	return{ simd::Multiply(lhs.m, simd::Set(1.0f / rhs)) };
 }
 
 inline SIMDVector cliqCity::graphicsMath::operator+(const float& lhs, const SIMDVector& rhs)
