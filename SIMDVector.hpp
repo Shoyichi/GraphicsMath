@@ -1,5 +1,5 @@
 #pragma once
-#include "SIMD/SIMD/simd.h"
+#include "simd.h"
 
 #ifdef _WINDLL
 #define CGM_DLL __declspec(dllexport)
