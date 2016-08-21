@@ -4,7 +4,12 @@
 //	
 
 #pragma once
+#ifndef MATRIX_H
+#define MATRIX_H
+
+#ifndef VECTOR_H
 #include "Vector.hpp"
+#endif
 
 #ifdef _WINDLL
 #define CGM_DLL __declspec(dllexport)
@@ -203,3 +208,5 @@ namespace cliqCity
 		CGM_DLL Matrix4 operator*(const float& lhs, const Matrix4& rhs);
 	}
 }
+
+#endif

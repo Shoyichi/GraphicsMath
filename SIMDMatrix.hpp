@@ -1,5 +1,10 @@
 #pragma once
+#ifndef SIMDMATRIX_H
+#define SIMDMATRIX_H
+
+#ifndef SIMDVECTOR_H
 #include "SIMDVector.hpp"
+#endif
 
 #ifdef _WINDLL
 #define CGM_DLL __declspec(dllexport)
@@ -61,3 +66,5 @@ namespace cliqCity
 		CGM_DLL SIMDMatrix operator*(const float& lhs, const SIMDMatrix& rhs);
 	}
 }
+
+#endif

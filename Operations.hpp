@@ -1,9 +1,9 @@
 #pragma once
+#ifndef OPERATIONS_H
+#define OPERATIONS_H
+
 #define _USE_MATH_DEFINES
 #include <cmath>
-//#include "Vector.hpp"
-//#include "Quaternion.hpp"
-//#include "SIMDVector.hpp"
 
 #define IS_NAN(x) (((x) < 0) == ((x) >= 0))
 
@@ -187,3 +187,5 @@ namespace cliqCity
 
 	}
 }
+
+#endif

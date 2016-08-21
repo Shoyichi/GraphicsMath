@@ -4,6 +4,8 @@
 //	Defines 2D, 3D, and 4D vectors and behavior
 
 #pragma once
+#ifndef VECTOR_H
+#define VECTOR_H
 
 #ifdef _WINDLL
 #define CGM_DLL __declspec(dllexport)
@@ -195,3 +197,5 @@ namespace cliqCity
 		CGM_DLL Vector4 operator*(const float& lhs, const Vector4& rhs);
 	}
 }
+
+#endif

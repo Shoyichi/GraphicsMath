@@ -1,5 +1,10 @@
 #pragma once
+#ifndef SIMDVECTOR_H
+#define SIMDVECTOR_H
+
+#ifndef SIMD_H
 #include "simd.h"
+#endif
 
 #ifdef _WINDLL
 #define CGM_DLL __declspec(dllexport)
@@ -79,3 +84,5 @@ namespace cliqCity
 		CGM_DLL SIMDVector operator*(const float& lhs, const SIMDVector& rhs);
 	}
 }
+
+#endif

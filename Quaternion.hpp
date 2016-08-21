@@ -4,7 +4,12 @@
 //	
 
 #pragma once
+#ifndef QUATERNION_H
+#define QUATERNION_H
+
+#ifndef MATRIX_H
 #include "Matrix.hpp"
+#endif
 
 #ifdef _WINDLL
 #define CGM_DLL __declspec(dllexport)
@@ -77,3 +82,5 @@ namespace cliqCity
 		CGM_DLL Quaternion operator/(const Quaternion& lhs, const float& rhs);
 	}
 }
+
+#endif

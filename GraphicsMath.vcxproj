@@ -70,12 +70,16 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="cgm.h" />
+    <ClInclude Include="Intersection.h" />
     <ClInclude Include="Matrix.hpp" />
+    <ClInclude Include="Subspaces.h" />
     <ClInclude Include="Quaternion.hpp" />
+    <ClInclude Include="simd.h" />
     <ClInclude Include="SIMDMatrix.hpp" />
     <ClInclude Include="SIMDVector.hpp" />
     <ClInclude Include="Vector.hpp" />
     <ClInclude Include="Operations.hpp" />
+    <ClInclude Include="Frustum.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Matrix.cpp" />
